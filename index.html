@@ -22,7 +22,9 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta id="twTitle" name="twitter:title" content="Online Therapy in Edmonton, Saskatoon, Prince Albert &amp; Toronto | Abundant Corner Counselling" />
 <meta id="twDesc" name="twitter:description" content="Virtual therapy in Edmonton, Saskatoon, Prince Albert &amp; Toronto — and across Canada — with Yeukai Tsikira, RP (Qualifying), CCC. Individual, teen 12+ &amp; family therapy and EMDR for anxiety, depression, grief and trauma. Free 15-minute consultation." />
-<link rel="icon" href="data:," />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<meta name="theme-color" content="#d98e1f" />
 <script type="application/ld+json">{
  "@context": "https://schema.org",
  "@graph": [
@@ -367,6 +369,9 @@
   .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
   .page{display:none}
   .page.active{display:block}
+  .page.active{animation:pageIn .35s ease both}
+  @keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.page.active{animation:none}}
   /* promo banner */
   .promo-banner{background:var(--honey-deep);color:#faf3e3;padding:11px 20px;text-align:center;font-weight:700;font-size:.97rem;line-height:1.45}
   @media (prefers-color-scheme: dark){ .promo-banner{background:var(--honey-soft);color:#f3ead8} }
@@ -620,7 +625,7 @@
         <a href="#/" data-nav>EN</a>
         <a href="#/fr" data-nav>FR</a>
       </nav>
-      <a class="btn btn-honey btn-small" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free consultation</a>
+      <a class="btn btn-honey btn-small" href="#/book">Book a free consultation</a>
     </div>
   </div>
 </header>
@@ -640,7 +645,7 @@
           <p><b>Limited promotion: $50 a session, locked in.</b> A small number of ongoing individual therapy spots at $50 per session, yours for as long as we work together. Regular individual rate is $120. This promotion is for individual therapy only. It does not apply to family or EMDR sessions. When these spots fill, they are gone.</p>
         </div>
         <div class="hero-ctas">
-          <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+          <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
           <a class="btn btn-outline" href="#/individual-therapy" data-nav>See how I can help</a>
         </div>
         <p class="hero-note">No commitment. A short conversation to see if we are a good fit. I reply within one business day. Prefer to write first? <a href="#/book" data-nav>Use the short booking form</a> instead.</p>
@@ -669,7 +674,7 @@
           <p>A short hello before you book. Hear Yeukai in her own words and get a feel for what it is like to talk with her.</p>
           <p>Because therapy here is virtual, this is a good way to meet your therapist first, from wherever you are in Canada.</p>
           <div class="hero-ctas">
-            <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+            <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
           </div>
           <p class="hero-note">Press play to watch. It plays right here on this page. Sound on if you can.</p>
         </div>
@@ -723,7 +728,7 @@
             <span class="tagchip">Virtual · Canada-wide</span>
             <h3>Therapy From Home</h3>
             <p>Every session is online, so you can meet from anywhere in Canada, from a space that feels safe.</p>
-            <a class="clink" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Start with a free consultation</a>
+            <a class="clink" href="#/book">Start with a free consultation</a>
           </div>
         </article>
       </div>
@@ -756,7 +761,7 @@
     <div class="final-cta">
       <h2>You do not have to stay in <em>survival mode.</em></h2>
       <p>Book a free 15-minute consultation and let&rsquo;s talk about what thriving could look like for you. Ask about the limited <strong>$50 a session promotion for individual therapy</strong>, locked in while spots last.</p>
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free consultation</a>
+      <a class="btn btn-honey" href="#/book">Book a free consultation</a>
       <p style="margin:14px 0 0;font-size:.9rem">I reply within one business day. Prefer to reach out another way? Email <a href="mailto:info@abundantcornercounselling.com">info@abundantcornercounselling.com</a>, call <a href="tel:+17803061676">780-306-1676</a>, or <a href="#/book" data-nav>send a note through the booking form</a>.</p>
     </div>
   </div>
@@ -800,7 +805,7 @@
             <li><span>Sessions are always in <b>English</b>. Yeukai also speaks <b>French</b> and <b>Shona</b>, so if something is easier to say in one of those, she will understand you.</span></li>
           </ul>
           <p style="margin-top:16px;color:var(--ink-soft)"><b>What does &ldquo;Qualifying&rdquo; mean?</b> It is CRPO&rsquo;s registration category for therapists completing the final steps toward full registration. Yeukai is fully registered, practises under clinical supervision, and is accountable to CRPO&rsquo;s standards. <a href="#/fees" data-nav>Read the full explanation in the FAQ</a>.</p>
-          <p style="margin-top:18px"><a class="btn btn-honey btn-small" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Meet me in a free consultation</a></p>
+          <p style="margin-top:18px"><a class="btn btn-honey btn-small" href="#/book">Meet me in a free consultation</a></p>
         </div>
       </div>
     </div>
@@ -842,7 +847,7 @@
     <div class="final-cta">
       <h2>Ready when <em>you</em> are</h2>
       <p>The first step is a free 15-minute consultation. No commitment, just a conversation about what you need.</p>
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free consultation</a>
+      <a class="btn btn-honey" href="#/book">Book a free consultation</a>
     </div>
   </div>
 </section>
@@ -867,7 +872,7 @@
           <p><b>Limited promotion: $50 a session, locked in</b> for individual therapy for clients who start during the promotion. Ask about a promotion spot in your free consultation.</p>
         </div>
         <div class="hero-ctas">
-          <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+          <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
           <a class="btn btn-outline" href="#/fees" data-nav>See fees &amp; FAQ</a>
         </div>
       </div>
@@ -903,7 +908,7 @@
           <p><b>A note on the $50 promotion:</b> the limited $50-per-session promotion applies to individual therapy only. It does not apply to family sessions, which are $180 for 75 minutes.</p>
         </div>
         <div class="hero-ctas">
-          <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+          <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
           <a class="btn btn-outline" href="#/fees" data-nav>See fees &amp; FAQ</a>
         </div>
       </div>
@@ -937,7 +942,7 @@
           <h3>What EMDR <em>is</em></h3>
           <p>EMDR (Eye Movement Desensitization and Reprocessing) is a therapy that can help your brain process painful memories so they may feel less present and less distressing over time. It is often used for trauma and PTSD. Outcomes vary from person to person, and EMDR is not the right fit for everyone, which is part of what the free consultation is for.</p>
           <p>EMDR sessions at Abundant Corner Counselling are 90 minutes and $260, held by secure video across Canada with Yeukai Tsikira, RP (Qualifying), CCC, who is trained in EMDR.</p>
-          <a class="btn btn-honey btn-small" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Ask about EMDR in a free consultation</a>
+          <a class="btn btn-honey btn-small" href="#/book">Ask about EMDR in a free consultation</a>
         </div>
       </div>
     </div>
@@ -972,7 +977,7 @@
           <p style="margin:14px 0 0;color:var(--muted);font-size:.92rem">You receive a detailed receipt after every paid session, which you can submit to your benefits or insurance provider for reimbursement. Direct billing is not offered yet.</p>
           <p style="margin:10px 0 0;color:var(--muted);font-size:.92rem"><strong style="color:var(--ink-soft)">Payment:</strong> Payment is due at the time of your session, by credit card or e-transfer, processed securely through Jane, the platform used for booking and billing. Card details go directly into Jane&rsquo;s encrypted payment system. They are never stored on this website, and your full card number is never seen by your therapist.</p>
           <p style="margin:6px 0 0;color:var(--muted);font-size:.92rem"><strong style="color:var(--ink-soft)">Cancellation:</strong> Your appointment time is reserved just for you, so please give at least 12 hours&rsquo; notice to cancel or reschedule. Your first late cancellation or missed appointment will not be charged. After that, appointments cancelled with less than 12 hours&rsquo; notice, and missed appointments, will be charged the full session fee.</p>
-          <p style="margin:16px 0 0"><a class="btn btn-honey btn-small" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free consultation</a></p>
+          <p style="margin:16px 0 0"><a class="btn btn-honey btn-small" href="#/book">Book a free consultation</a></p>
         </div>
         <div id="faq">
           <details class="faq" open>
@@ -1169,15 +1174,15 @@
     <div class="page-hero">
       <p class="over">Book · Free 15-minute consultation</p>
       <h1>Book your free <em>consultation</em></h1>
-      <p class="lede">Choose how you would like to start: book your free consultation directly on JaneApp, or answer a few short questions here first and they will be emailed to Yeukai before you pick your time. Either way, you will hear back within one business day.</p>
+      <p class="lede">Choose how you would like to start: open the booking calendar on JaneApp (in this tab), or answer a few short questions here first and they will be emailed to Yeukai before you pick your time. Either way, you will hear back within one business day.</p>
     </div>
     <div class="msec">
       <div class="panel" style="margin-bottom:26px">
         <h3>Two ways to book: pick whichever feels easier</h3>
-        <p><strong>Option 1: Book directly on JaneApp.</strong> Choose your free consultation time on the booking calendar and you are done. No questions to answer first.</p>
-        <p><a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book on JaneApp</a></p>
+        <p><strong>Option 1: Book on JaneApp.</strong> Choose your free consultation time on the booking calendar and you are done. No questions to answer first. The calendar opens here in this tab, on JaneApp — the secure platform used for booking and billing.</p>
+        <p><a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com">Open the booking calendar</a></p>
         <p style="font-size:.9rem">Same-day consultation bookings available.</p>
-        <p style="margin-bottom:0"><strong>Option 2: Answer a few questions first.</strong> Use the short form on this page. Your answers are emailed to Yeukai, and you then continue to JaneApp to pick your time. I reply within one business day.</p>
+        <p style="margin-bottom:0"><strong>Option 2: Answer a few questions first.</strong> Use the short form on this page. Your answers are emailed to Yeukai, and you then pick your time on the JaneApp calendar (in this tab). I reply within one business day.</p>
       </div>
       <div class="book-grid">
         <div class="book-side">
@@ -1271,7 +1276,7 @@
             <button class="btn btn-honey" type="submit" style="width:100%">Send and continue to booking on JaneApp</button>
             <p class="fineprint">After you send, you will land on the JaneApp booking calendar to pick your free consultation time and finish booking. I reply within one business day.</p>
           </form>
-          <p class="fineprint" style="text-align:center;margin-top:16px">Prefer to just book? <a href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener"><strong>Book your free consultation on JaneApp</strong></a></p>
+          <p class="fineprint" style="text-align:center;margin-top:16px">Prefer to just book? <a href="#/book"><strong>Book your free consultation on JaneApp</strong></a></p>
           <div class="book-promo" style="margin-top:16px">
             <span class="bp-price">$50</span>
             <p><b>Promotion by the booking button:</b> limited $50-per-session individual therapy spots, locked in for clients who start during the promotion. Individual therapy only. Family and EMDR sessions are not included. Free consultation first. Ask about a spot on the call.</p>
@@ -1294,7 +1299,7 @@
     <h2>How virtual sessions work</h2>
     <p>Sessions are by secure video, from home or anywhere private. Book a free 15-minute consultation first, meet Yeukai, ask your questions, and decide if it feels like a good fit. No referral needed.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+      <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
       <a class="btn btn-outline" href="#/fees-and-faq" data-nav>See fees &amp; FAQ</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem">Also serving clients online in <a href="#/saskatoon-therapy" data-nav>Saskatoon</a>, <a href="#/prince-albert-therapy" data-nav>Prince Albert</a> and <a href="#/toronto-therapy" data-nav>Toronto</a>, and across Canada.</p>
@@ -1312,7 +1317,7 @@
     <h2>How virtual sessions work</h2>
     <p>Sessions are by secure video, from home or anywhere private. Book a free 15-minute consultation first, meet Yeukai, ask your questions, and decide if it feels like a good fit. No referral needed.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+      <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
       <a class="btn btn-outline" href="#/fees-and-faq" data-nav>See fees &amp; FAQ</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem">Also serving clients online in <a href="#/edmonton-therapy" data-nav>Edmonton</a>, <a href="#/prince-albert-therapy" data-nav>Prince Albert</a> and <a href="#/toronto-therapy" data-nav>Toronto</a>, and across Canada.</p>
@@ -1330,7 +1335,7 @@
     <h2>How virtual sessions work</h2>
     <p>Sessions are by secure video, from home or anywhere private. Book a free 15-minute consultation first, meet Yeukai, ask your questions, and decide if it feels like a good fit. No referral needed.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+      <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
       <a class="btn btn-outline" href="#/fees-and-faq" data-nav>See fees &amp; FAQ</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem">Also serving clients online in <a href="#/edmonton-therapy" data-nav>Edmonton</a>, <a href="#/saskatoon-therapy" data-nav>Saskatoon</a> and <a href="#/toronto-therapy" data-nav>Toronto</a>, and across Canada.</p>
@@ -1348,7 +1353,7 @@
     <h2>How virtual sessions work</h2>
     <p>Sessions are by secure video, from home or anywhere private. Book a free 15-minute consultation first, meet Yeukai, ask your questions, and decide if it feels like a good fit. No referral needed.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+      <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
       <a class="btn btn-outline" href="#/fees-and-faq" data-nav>See fees &amp; FAQ</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem">Also serving clients online in <a href="#/edmonton-therapy" data-nav>Edmonton</a>, <a href="#/saskatoon-therapy" data-nav>Saskatoon</a> and <a href="#/prince-albert-therapy" data-nav>Prince Albert</a>, and across Canada.</p>
@@ -1366,7 +1371,7 @@
     <h2>EMDR sessions &amp; fees</h2>
     <p>EMDR sessions are 90 minutes, $260. Every first step is a free 15-minute consultation, booked through JaneApp. Receipts are provided for insurance benefits.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+      <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
       <a class="btn btn-outline" href="#/emdr-therapy" data-nav>About EMDR</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem">EMDR also available online in <a href="#/emdr-saskatoon" data-nav>Saskatoon</a>, <a href="#/emdr-prince-albert" data-nav>Prince Albert</a> and <a href="#/emdr-toronto" data-nav>Toronto</a>, and across Canada. Individual therapy and teen &amp; family therapy are offered too.</p>
@@ -1384,7 +1389,7 @@
     <h2>EMDR sessions &amp; fees</h2>
     <p>EMDR sessions are 90 minutes, $260. Every first step is a free 15-minute consultation, booked through JaneApp. Receipts are provided for insurance benefits.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+      <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
       <a class="btn btn-outline" href="#/emdr-therapy" data-nav>About EMDR</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem">EMDR also available online in <a href="#/emdr-edmonton" data-nav>Edmonton</a>, <a href="#/emdr-prince-albert" data-nav>Prince Albert</a> and <a href="#/emdr-toronto" data-nav>Toronto</a>, and across Canada. Individual therapy and teen &amp; family therapy are offered too.</p>
@@ -1402,7 +1407,7 @@
     <h2>EMDR sessions &amp; fees</h2>
     <p>EMDR sessions are 90 minutes, $260. Every first step is a free 15-minute consultation, booked through JaneApp. Receipts are provided for insurance benefits.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+      <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
       <a class="btn btn-outline" href="#/emdr-therapy" data-nav>About EMDR</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem">EMDR also available online in <a href="#/emdr-edmonton" data-nav>Edmonton</a>, <a href="#/emdr-saskatoon" data-nav>Saskatoon</a> and <a href="#/emdr-toronto" data-nav>Toronto</a>, and across Canada. Individual therapy and teen &amp; family therapy are offered too.</p>
@@ -1420,7 +1425,7 @@
     <h2>EMDR sessions &amp; fees</h2>
     <p>EMDR sessions are 90 minutes, $260. Every first step is a free 15-minute consultation, booked through JaneApp. Receipts are provided for insurance benefits.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Book a free 15-minute consultation</a>
+      <a class="btn btn-honey" href="#/book">Book a free 15-minute consultation</a>
       <a class="btn btn-outline" href="#/emdr-therapy" data-nav>About EMDR</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem">EMDR also available online in <a href="#/emdr-edmonton" data-nav>Edmonton</a>, <a href="#/emdr-saskatoon" data-nav>Saskatoon</a> and <a href="#/emdr-prince-albert" data-nav>Prince Albert</a>, and across Canada. Individual therapy and teen &amp; family therapy are offered too.</p>
@@ -1440,7 +1445,7 @@
     <h2>Services offerts en français</h2>
     <p>Thérapie individuelle, 50 minutes, 120 $ · Thérapie familiale, 75 minutes, 180 $ · EMDR, 90 minutes, 260 $ · Consultation gratuite de 15 minutes. Séances par vidéo sécurisée, depuis chez vous, partout au Canada — Edmonton, Saskatoon, Prince Albert et Toronto.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Réserver une consultation gratuite de 15 minutes</a>
+      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com">Réserver une consultation gratuite de 15 minutes</a>
       <a class="btn btn-outline" href="#/tarifs" data-nav>Voir les tarifs</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem">Aussi offert en anglais. <a href="#/" data-nav>English version</a></p>
@@ -1456,7 +1461,7 @@
     <h2>Tarifs</h2>
     <p>Séance individuelle, 50 minutes, 120 $ — avec un nombre limité de places à 50 $ la séance, verrouillé tant que vous travaillez ensemble. Chaque premier pas est une consultation gratuite de 15 minutes, réservée par JaneApp.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Réserver une consultation gratuite de 15 minutes</a>
+      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com">Réserver une consultation gratuite de 15 minutes</a>
       <a class="btn btn-outline" href="#/tarifs" data-nav>Voir les tarifs</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem"><a href="#/therapie-ados-famille" data-nav>Thérapie ados et familles</a> · <a href="#/emdr-francais" data-nav>EMDR en français</a> · <a href="#/individual-therapy" data-nav>English version</a></p>
@@ -1472,7 +1477,7 @@
     <h2>Comment ça fonctionne</h2>
     <p>Séances par vidéo sécurisée, depuis chez vous. Réservez d’abord une consultation gratuite de 15 minutes, rencontrez Yeukai, posez vos questions, et décidez si ça vous convient. Aucune référence requise.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Réserver une consultation gratuite de 15 minutes</a>
+      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com">Réserver une consultation gratuite de 15 minutes</a>
       <a class="btn btn-outline" href="#/tarifs" data-nav>Voir les tarifs</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem"><a href="#/therapie-individuelle" data-nav>Thérapie individuelle</a> · <a href="#/emdr-francais" data-nav>EMDR en français</a> · <a href="#/teen-and-family-therapy" data-nav>English version</a></p>
@@ -1488,7 +1493,7 @@
     <h2>Pour qui</h2>
     <p>L’EMDR est l’une des approches offertes ici pour le trauma et le TSPT, l’anxiété, la dépression et le deuil. Séances de 90 minutes, 260 $. Consultation gratuite de 15 minutes d’abord.</p>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Réserver une consultation gratuite de 15 minutes</a>
+      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com">Réserver une consultation gratuite de 15 minutes</a>
       <a class="btn btn-outline" href="#/tarifs" data-nav>Voir les tarifs</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem"><a href="#/emdr-therapy" data-nav>EMDR in English</a> · <a href="#/therapie-individuelle" data-nav>Thérapie individuelle</a></p>
@@ -1516,10 +1521,58 @@
       </div>
     </div>
     <div class="hero-ctas">
-      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com" target="_blank" rel="noopener">Réserver une consultation gratuite de 15 minutes</a>
+      <a class="btn btn-honey" href="https://abundantcornercounselling.janeapp.com">Réserver une consultation gratuite de 15 minutes</a>
       <a class="btn btn-outline" href="#/tarifs" data-nav>Voir les tarifs</a>
     </div>
     <p style="margin:14px 0 0;font-size:.9rem"><a href="#/fees-and-faq" data-nav>Fees &amp; FAQ in English</a></p>
+  </div>
+</section>
+
+<!-- ============ PRIVACY ============ -->
+<section class="page" data-page="privacy" aria-label="Privacy policy">
+  <div class="wrap">
+    <div class="page-hero">
+      <p class="over">Privacy policy</p>
+      <h1>Your privacy, <em>plainly stated</em></h1>
+      <p class="lede">How Abundant Corner Counselling collects, uses and protects your personal information.</p>
+    </div>
+    <div class="msec">
+      <h2>Who we are</h2>
+      <p>Abundant Corner Counselling is the virtual therapy practice of Yeukai Tsikira, Registered Psychotherapist (Qualifying), CRPO 18718, and Canadian Certified Counsellor, CCPA 11246478. Contact: <a href="mailto:info@abundantcornercounselling.com">info@abundantcornercounselling.com</a> or <a href="tel:+17803061676">780-306-1676</a>.</p>
+      <h2>Information we collect</h2>
+      <p><strong>Contact form:</strong> if you write through the form on this site, we receive your name, email address and message, sent to Yeukai by email so she can reply. <strong>Booking:</strong> when you book, JaneApp — the practice platform used for booking and billing — collects the name, contact details and appointment information you enter there; that information is governed by Jane’s privacy policy. <strong>Website use:</strong> this site sets no cookies and runs no analytics or advertising trackers. The only thing saved in your browser is your language choice (English or French). Google Fonts are loaded from Google’s servers to display text.</p>
+      <h2>How we use it</h2>
+      <p>To reply to you, to book and provide your sessions, and to send receipts. We do not sell your information and we do not share it for marketing.</p>
+      <h2>Clinical records and confidentiality</h2>
+      <p>Session notes are kept as long as required by her professional regulator and the law. What you share in therapy is confidential, with the standard limits every therapist explains at the start: risk of serious harm to yourself or someone else, child protection concerns, and a court order.</p>
+      <h2>Your rights</h2>
+      <p>You can ask what personal information we hold about you, ask for a correction, or ask questions about how it is handled — write to <a href="mailto:info@abundantcornercounselling.com">info@abundantcornercounselling.com</a>.</p>
+      <p style="color:var(--muted);font-size:.92rem">This page is a plain-language summary of the practice’s approach. If anything here changes, this page will be updated.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TERMS ============ -->
+<section class="page" data-page="terms" aria-label="Terms of use">
+  <div class="wrap">
+    <div class="page-hero">
+      <p class="over">Terms of use</p>
+      <h1>Terms, <em>plainly stated</em></h1>
+      <p class="lede">The terms for using this website and booking virtual therapy with Abundant Corner Counselling.</p>
+    </div>
+    <div class="msec">
+      <h2>Services</h2>
+      <p>Abundant Corner Counselling provides virtual therapy sessions by secure video, for adults, teens 12+ and families, including EMDR. This is not a crisis service. In an emergency call <strong>911</strong>, or call or text <strong>988</strong> in Canada.</p>
+      <h2>Booking, fees and payment</h2>
+      <p>Fees are as listed on the <a href="#/fees-and-faq" data-nav>fees page</a>: free 15-minute consultation, individual $120 for 50 minutes, family $180 for 75 minutes, EMDR $260 for 90 minutes. Payment is due at the time of your session, by credit card or e-transfer through JaneApp, and you receive a detailed receipt after every paid session. The limited $50-per-session promotion applies to ongoing individual therapy only, as described on the fees page.</p>
+      <h2>Cancelling or rescheduling</h2>
+      <p>If you need to change or cancel an appointment, please contact us as soon as you can so the time can be offered to someone else.</p>
+      <h2>Confidentiality</h2>
+      <p>What you share in therapy is confidential, with the standard limits described in the <a href="#/privacy" data-nav>privacy policy</a>.</p>
+      <h2>No guarantee</h2>
+      <p>Therapy is a process, and no particular outcome can be guaranteed. If the fit does not feel right, say so — a referral elsewhere can be discussed.</p>
+      <p style="color:var(--muted);font-size:.92rem">These terms are governed by the laws of Ontario and Canada. Questions: <a href="mailto:info@abundantcornercounselling.com">info@abundantcornercounselling.com</a>.</p>
+    </div>
   </div>
 </section>
 
@@ -1557,7 +1610,9 @@
             <li><a href="#/speaking" data-nav>Speaking &amp; workshops</a></li>
             <li><a href="#/fees" data-nav>Fees &amp; FAQ</a></li>
             <li><a href="#/resources" data-nav>Resources</a></li>
-            <li><a href="#/book" data-nav>Book a consultation</a></li>
+            <li><a href="#/book" data-nav>Book a consultation</a>
+        <a href="#/privacy" data-nav>Privacy policy</a>
+        <a href="#/terms" data-nav>Terms of use</a></li>
           </ul>
         </div>
         <div>
@@ -1588,7 +1643,7 @@
     "fees":       { path:"/fees-and-faq", title:"Therapy Fees & FAQ: $120 Individual, $180 Family, $260 EMDR | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/fees-and-faq", desc:"Therapy costs at Abundant Corner Counselling: free 15-minute consultation, individual $120/50 min, family $180/75 min, EMDR $260/90 min. Limited $50/session promotion for individual therapy only, locked in. Receipts for insurance benefits. Virtual across Canada: Edmonton, Saskatoon, Prince Albert, Toronto." },
     "resources":  { path:"/resources", title:"Resources & Reflections: Survival Mode, EMDR, Grief | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/resources", desc:"Reflections on survival mode, what EMDR feels like, and grief through life transitions, from Abundant Corner Counselling, virtual therapy across Canada. Crisis lines: 911 and 988 in Canada." },
     "speaking":   { path:"/speaking", title:"Book a Mental Health Speaker in Canada: Speaking & Workshops | Yeukai Tsikira, Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/speaking", desc:"Book Yeukai Tsikira for paid speaking, workshops and presentations. Past engagements: Grande Prairie Public Library, Alberta Northwest Palliative Care Society, Prince Albert SDA Church. Fees quoted per event. Email info@abundantcornercounselling.com." },
-    "book":       { path:"/", title:"Book a Free 15-Minute Consultation | Abundant Corner Counselling (book.abundantcornercounselling.com)", canonical:"https://book.abundantcornercounselling.com/", desc:"Book a free 15-minute consultation with Yeukai Tsikira at Abundant Corner Counselling. Virtual therapy in Edmonton, Saskatoon, Prince Albert & Toronto for adults, teens 12+ and families. Limited $50/session promotion for individual therapy. Booking completed on JaneApp." },
+    "book":       { path:"/book", title:"Book a Free 15-Minute Consultation | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/book", desc:"Book a free 15-minute consultation with Yeukai Tsikira at Abundant Corner Counselling. Virtual therapy in Edmonton, Saskatoon, Prince Albert & Toronto for adults, teens 12+ and families. Limited $50/session promotion for individual therapy. Booking completed on JaneApp." },
     "edmonton":     { path:"/edmonton-therapy", title:"Online Therapy in Edmonton | Virtual Therapist Edmonton | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/edmonton-therapy", desc:"Online therapy in Edmonton with Yeukai Tsikira, RP (Qualifying), CCC. Virtual individual, teen 12+ & family therapy and EMDR by secure video \u2014 no commute. Free 15-minute consultation. Limited $50/session promotion." },
     "saskatoon":    { path:"/saskatoon-therapy", title:"Online Counselling in Saskatoon | Virtual Therapist Saskatoon | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/saskatoon-therapy", desc:"Online counselling in Saskatoon with Yeukai Tsikira, RP (Qualifying), CCC. Virtual individual, teen 12+ & family therapy and EMDR by secure video. Free 15-minute consultation. Limited $50/session promotion." },
     "prince-albert":{ path:"/prince-albert-therapy", title:"Online Therapy in Prince Albert | Virtual Counsellor Prince Albert | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/prince-albert-therapy", desc:"Online therapy in Prince Albert with Yeukai Tsikira, RP (Qualifying), CCC. Virtual individual, teen 12+ & family therapy and EMDR by secure video \u2014 therapy without the wait or the drive. Free 15-minute consultation." },
@@ -1601,9 +1656,11 @@
     "therapie-individuelle": { path:"/therapie-individuelle", lang:"fr", title:"Thérapie individuelle en ligne en français | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/therapie-individuelle", desc:"Thérapie individuelle en français, en ligne, avec Yeukai Tsikira, RP (Qualifying), CCC. Guérison à la racine pour l’anxiété, la dépression, le deuil et le trauma. 120 $ par 50 minutes. Consultation gratuite de 15 minutes." },
     "therapie-ados-famille": { path:"/therapie-ados-famille", lang:"fr", title:"Thérapie pour ados (12+) et familles en français | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/therapie-ados-famille", desc:"Thérapie virtuelle en français pour ados de 12 ans et plus et leurs familles, avec Yeukai Tsikira, RP (Qualifying), CCC. Séances familiales de 75 minutes, 180 $. Consultation gratuite de 15 minutes." },
     "emdr-francais": { path:"/emdr-francais", lang:"fr", title:"EMDR en français | Thérapeute EMDR francophone | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/emdr-francais", desc:"EMDR en français avec Yeukai Tsikira, RP (Qualifying), CCC. EMDR virtuel par vidéo sécurisée pour le trauma, le TSPT, l’anxiété et le deuil. Séances de 90 minutes, 260 $. Consultation gratuite de 15 minutes." },
-    "tarifs":     { path:"/tarifs", lang:"fr", title:"Tarifs de thérapie en français | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/tarifs", desc:"Tarifs de thérapie en français : consultation gratuite de 15 minutes, individuelle 120 $/50 min, familiale 180 $/75 min, EMDR 260 $/90 min. Promotion limitée : 50 $ la séance individuelle." }
+    "tarifs":     { path:"/tarifs", lang:"fr", title:"Tarifs de thérapie en français | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/tarifs", desc:"Tarifs de thérapie en français : consultation gratuite de 15 minutes, individuelle 120 $/50 min, familiale 180 $/75 min, EMDR 260 $/90 min. Promotion limitée : 50 $ la séance individuelle." },
+    "privacy":    { path:"/privacy", title:"Privacy Policy | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/privacy", desc:"How Abundant Corner Counselling collects, uses and protects your personal information, including the contact form, JaneApp booking, and your rights." },
+    "terms":      { path:"/terms", title:"Terms of Use | Abundant Corner Counselling", canonical:"https://abundantcornercounselling.com/terms", desc:"Terms for using the Abundant Corner Counselling website and booking virtual therapy: services, fees, payment, cancellations and confidentiality." }
   };
-  var HASHMAP = { "":"home", "/":"home", "/about":"about", "/individual-therapy":"individual", "/teen-family":"teen-family", "/teen-and-family-therapy":"teen-family", "/emdr":"emdr", "/emdr-therapy":"emdr", "/fees":"fees", "/fees-and-faq":"fees", "/resources":"resources", "/speaking":"speaking", "/book":"book", "/edmonton-therapy":"edmonton", "/edmonton":"edmonton", "/saskatoon-therapy":"saskatoon", "/saskatoon":"saskatoon", "/prince-albert-therapy":"prince-albert", "/prince-albert":"prince-albert", "/toronto-therapy":"toronto", "/toronto":"toronto", "/emdr-edmonton":"emdr-edmonton", "/emdr-saskatoon":"emdr-saskatoon", "/emdr-prince-albert":"emdr-prince-albert", "/emdr-toronto":"emdr-toronto", "/fr":"fr", "/therapie-individuelle":"therapie-individuelle", "/therapie-ados-famille":"therapie-ados-famille", "/emdr-francais":"emdr-francais", "/tarifs":"tarifs" };
+  var HASHMAP = { "":"home", "/":"home", "/about":"about", "/individual-therapy":"individual", "/teen-family":"teen-family", "/teen-and-family-therapy":"teen-family", "/emdr":"emdr", "/emdr-therapy":"emdr", "/fees":"fees", "/fees-and-faq":"fees", "/resources":"resources", "/speaking":"speaking", "/book":"book", "/edmonton-therapy":"edmonton", "/edmonton":"edmonton", "/saskatoon-therapy":"saskatoon", "/saskatoon":"saskatoon", "/prince-albert-therapy":"prince-albert", "/prince-albert":"prince-albert", "/toronto-therapy":"toronto", "/toronto":"toronto", "/emdr-edmonton":"emdr-edmonton", "/emdr-saskatoon":"emdr-saskatoon", "/emdr-prince-albert":"emdr-prince-albert", "/emdr-toronto":"emdr-toronto", "/fr":"fr", "/therapie-individuelle":"therapie-individuelle", "/therapie-ados-famille":"therapie-ados-famille", "/emdr-francais":"emdr-francais", "/tarifs":"tarifs", "/privacy":"privacy", "/terms":"terms" };
   var titleEl = document.getElementById("pageTitle");
   var descEl = document.getElementById("metaDesc");
   var canonEl = document.getElementById("canonicalLink");
