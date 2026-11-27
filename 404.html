@@ -25,6 +25,13 @@
 <link rel="icon" type="image/png" href="/assets/favicon.png" />
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 <meta name="theme-color" content="#d98e1f" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1L0H7DKSD7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-1L0H7DKSD7', {send_page_view: false});
+</script>
 <script type="application/ld+json">{
  "@context": "https://schema.org",
  "@graph": [
@@ -1548,7 +1555,7 @@
       <h2>Who we are</h2>
       <p>Abundant Corner Counselling is the virtual therapy practice of Yeukai Tsikira, Registered Psychotherapist (Qualifying), CRPO 18718, and Canadian Certified Counsellor, CCPA 11246478. Contact: <a href="mailto:info@abundantcornercounselling.com">info@abundantcornercounselling.com</a> or <a href="tel:+17803061676">780-306-1676</a>.</p>
       <h2>Information we collect</h2>
-      <p><strong>Contact form:</strong> if you write through the form on this site, we receive your name, email address and message, sent to Yeukai by email so she can reply. <strong>Booking:</strong> when you book, JaneApp — the practice platform used for booking and billing — collects the name, contact details and appointment information you enter there; that information is governed by Jane’s privacy policy. <strong>Website use:</strong> this site sets no cookies and runs no analytics or advertising trackers. The only thing saved in your browser is your language choice (English or French). Google Fonts are loaded from Google’s servers to display text.</p>
+      <p><strong>Contact form:</strong> if you write through the form on this site, we receive your name, email address and message, sent to Yeukai by email so she can reply. <strong>Booking:</strong> when you book, JaneApp — the practice platform used for booking and billing — collects the name, contact details and appointment information you enter there; that information is governed by Jane’s privacy policy. <strong>Website use:</strong> this site uses Google Analytics to understand how visitors use it — which pages are visited, roughly where visitors are, and what device they use. Google Analytics sets cookies and may process this information on servers outside Canada. It does not collect your name, email, or anything you type into the contact form, and no advertising trackers are used. The only other thing saved in your browser is your language choice (English or French). Google Fonts are loaded from Google’s servers to display text.</p>
       <h2>How we use it</h2>
       <p>To reply to you, to book and provide your sessions, and to send receipts. We do not sell your information and we do not share it for marketing.</p>
       <h2>Clinical records and confidentiality</h2>
@@ -1735,6 +1742,7 @@
     if (siteLinks) siteLinks.classList.remove("open");
     if (menuBtn) menuBtn.setAttribute("aria-expanded","false");
     window.scrollTo(0,0);
+    if (typeof gtag === "function") { gtag("event", "page_view", {page_title: document.title, page_path: location.pathname + location.hash}); }
   }
   document.addEventListener("click", function(e){
     var t = e.target.closest ? e.target.closest("[data-scroll]") : null;
