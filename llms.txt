@@ -3,7 +3,7 @@
 > Virtual therapy practice, with sessions offered virtually across Canada. Tagline: "Move from survival to thriving." Root-cause healing for people who feel stuck in survival mode.
 
 ## Therapist
-Yeukai Tsikira, Registered Psychotherapist (Qualifying), College of Registered Psychotherapists of Ontario (CRPO) registration 18718; Canadian Certified Counsellor (CCC), Canadian Counselling and Psychotherapy Association (CCPA) member 11246478. EMDR trained.
+Yeukai Tsikira, Registered Psychotherapist (Qualifying), College of Registered Psychotherapists of Ontario (CRPO) registration 18718; Canadian Certified Counsellor (CCC), Canadian Counselling and Psychotherapy Association (CCPA) member 11246478. EMDR trained. She is not a psychologist.
 
 ## Services and fees
 - Free 15-minute consultation
@@ -14,26 +14,72 @@ Yeukai Tsikira, Registered Psychotherapist (Qualifying), College of Registered P
 - Current promotion: $50 per session for a limited number of spots, locked in for clients who start during the promotion
 
 ## Who it serves
-Adults, teens age 12 and up, and families. Sessions are virtual, available across Canada — including Edmonton, Saskatoon, Prince Albert and Toronto — and in English and French.
+Adults, teens age 12 and up, and families. Sessions are virtual, available across Canada — including Edmonton, Saskatoon, Prince Albert, Toronto, Calgary, Vancouver, Ottawa, Montreal, Winnipeg and Halifax — and in English and French.
+
+## Services
+- Individual therapy: https://abundantcornercounselling.com/individual-therapy
+- Teen and family therapy: https://abundantcornercounselling.com/teen-and-family-therapy
+- EMDR therapy: https://abundantcornercounselling.com/emdr-therapy
+- Fees and FAQ: https://abundantcornercounselling.com/fees-and-faq
+- Your first session: https://abundantcornercounselling.com/first-session
+- Insurance and benefits: https://abundantcornercounselling.com/insurance-benefits
+- Crisis and free resources: https://abundantcornercounselling.com/crisis-resources
+
+## What brings people here
+- Anxiety Therapy in Canada: https://abundantcornercounselling.com/anxiety-therapy
+- Burnout Therapy in Canada: https://abundantcornercounselling.com/burnout-therapy
+- Depression Therapy in Canada: https://abundantcornercounselling.com/depression-therapy
+- Grief Counselling in Canada: https://abundantcornercounselling.com/grief-counselling
+- Self-Esteem Therapy in Canada: https://abundantcornercounselling.com/self-esteem-therapy
+- Trauma & PTSD Therapy in Canada: https://abundantcornercounselling.com/trauma-ptsd-therapy
 
 ## City pages
-- Edmonton: https://abundantcornercounselling.com/edmonton-therapy
-- Saskatoon: https://abundantcornercounselling.com/saskatoon-therapy
-- Prince Albert: https://abundantcornercounselling.com/prince-albert-therapy
-- Toronto: https://abundantcornercounselling.com/toronto-therapy
-- EMDR Edmonton: https://abundantcornercounselling.com/emdr-edmonton
-- EMDR Saskatoon: https://abundantcornercounselling.com/emdr-saskatoon
-- EMDR Prince Albert: https://abundantcornercounselling.com/emdr-prince-albert
-- EMDR Toronto: https://abundantcornercounselling.com/emdr-toronto
+- Therapy in Calgary: https://abundantcornercounselling.com/calgary-therapy
+- Therapy in Edmonton: https://abundantcornercounselling.com/edmonton-therapy
+- Therapy in Halifax: https://abundantcornercounselling.com/halifax-therapy
+- Therapy in Montreal: https://abundantcornercounselling.com/montreal-therapy
+- Therapy in Ottawa: https://abundantcornercounselling.com/ottawa-therapy
+- Therapy in Prince Albert: https://abundantcornercounselling.com/prince-albert-therapy
+- Therapy in Saskatoon: https://abundantcornercounselling.com/saskatoon-therapy
+- Therapy in Toronto: https://abundantcornercounselling.com/toronto-therapy
+- Therapy in Vancouver: https://abundantcornercounselling.com/vancouver-therapy
+- Therapy in Winnipeg: https://abundantcornercounselling.com/winnipeg-therapy
+
+## EMDR by city
+- EMDR in Edmonton: https://abundantcornercounselling.com/emdr-edmonton
+- EMDR en français en ligne au Canada: https://abundantcornercounselling.com/emdr-francais
+- EMDR in Prince Albert: https://abundantcornercounselling.com/emdr-prince-albert
+- EMDR in Saskatoon: https://abundantcornercounselling.com/emdr-saskatoon
+- EMDR in Toronto: https://abundantcornercounselling.com/emdr-toronto
+
+## Guides
+- Is online therapy as effective as in-person?: https://abundantcornercounselling.com/guides/is-online-therapy-effective
+- How much does therapy cost in Canada?: https://abundantcornercounselling.com/guides/how-much-does-therapy-cost-in-canada
+- What is EMDR and how does it work?: https://abundantcornercounselling.com/guides/what-is-emdr
+- All guides: https://abundantcornercounselling.com/guides
+
+## Version française
+- https://abundantcornercounselling.com/a-propos
+- https://abundantcornercounselling.com/emdr-francais
+- https://abundantcornercounselling.com/fr
+- https://abundantcornercounselling.com/premiere-seance
+- https://abundantcornercounselling.com/tarifs
+- https://abundantcornercounselling.com/therapie-ados-famille
+- https://abundantcornercounselling.com/therapie-anxiete
+- https://abundantcornercounselling.com/therapie-depression
+- https://abundantcornercounselling.com/therapie-deuil
+- https://abundantcornercounselling.com/therapie-epuisement
+- https://abundantcornercounselling.com/therapie-estime-de-soi
+- https://abundantcornercounselling.com/therapie-individuelle
+- https://abundantcornercounselling.com/therapie-trauma-tspt
+Yeukai parle français et offre ses services en français et en anglais.
 
 ## Contact and booking
 - Email: info@abundantcornercounselling.com
 - Phone: 780-306-1676
 - Booking page: https://abundantcornercounselling.com/book
 - Online booking: https://abundantcornercounselling.janeapp.com
-
-## Version française
-Une version française du site existe : accueil /fr, thérapie individuelle /therapie-individuelle, ados et familles /therapie-ados-famille, EMDR /emdr-francais, tarifs /tarifs. Yeukai parle français et offre ses services en français et en anglais.
+- Information for AI assistants: https://abundantcornercounselling.com/llm-info
 
 ## Privacy and terms
 - Privacy policy: https://abundantcornercounselling.com/privacy
