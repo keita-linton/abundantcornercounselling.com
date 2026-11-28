@@ -126,6 +126,15 @@
   .foot { text-align: center; color: var(--muted); font-size: 13px; margin-top: 8px; }
   .foot .priv { margin-top: 6px; font-size: 12.5px; }
   .refresh { font-size: 13px; color: var(--muted); text-align: center; margin-top: 6px; }
+  /* Live visitor toast — the "ping" when someone lands on the site */
+  .toast-wrap { position: fixed; right: 18px; bottom: 18px; display: flex; flex-direction: column; gap: 10px; z-index: 50; max-width: min(360px, calc(100vw - 36px)); }
+  .toast { background: var(--surface); border: 1px solid var(--line-strong); border-left: 4px solid var(--green); border-radius: 14px; box-shadow: var(--shadow-lg); padding: 13px 15px; display: flex; gap: 10px; align-items: flex-start; animation: toastIn .35s ease both; }
+  .toast.out { animation: toastOut .4s ease both; }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes toastOut { to { opacity: 0; transform: translateY(8px); } }
+  .toast .tdot { width: 10px; height: 10px; border-radius: 50%; background: var(--green); flex: none; margin-top: 5px; box-shadow: 0 0 0 4px var(--green-soft); }
+  .toast b { display: block; font-size: 14px; }
+  .toast span { font-size: 13px; color: var(--muted); }
   @media (max-width: 760px) {
     .kpis { grid-template-columns: repeat(2, 1fr); }
     .globe-grid, .split { grid-template-columns: 1fr; }
@@ -239,6 +248,7 @@
     <p class="foot"><span class="priv">Private by design: no cookies, no visitor names, no addresses — only the page, the time and a rough region. Only you can see this page.</span></p>
   </div>
 </div>
+<div class="toast-wrap" id="toastWrap"></div>
 
 <script>
 var API = "https://abundant-traffic.fly.dev";
@@ -272,6 +282,31 @@ function prettyWhere(tz) {
   var parts = tz.split("/");
   var city = (parts[1] || parts[0] || tz).replace(/_/g, " ");
   return city.charAt(0).toUpperCase() + city.slice(1);
+}
+
+/* ---------- Live visitor toast (the "ping") ---------- */
+var prevOnlineKeys = null;
+function onlineKey(e) { return (e.page || "/") + "|" + (e.device || "") + "|" + (e.where || ""); }
+function showToast(title, sub) {
+  var wrap = document.getElementById("toastWrap");
+  if (!wrap) return;
+  var t = document.createElement("div");
+  t.className = "toast";
+  t.innerHTML = "<span class='tdot'></span><div><b>" + esc(title) + "</b><span>" + esc(sub) + "</span></div>";
+  wrap.appendChild(t);
+  setTimeout(function () { t.classList.add("out"); setTimeout(function () { t.remove(); }, 420); }, 6000);
+}
+function pingNewVisitors(online) {
+  var human = online.filter(function (e) { return e.kind !== "bot"; });
+  var curKeys = human.map(onlineKey);
+  if (prevOnlineKeys) {
+    human.forEach(function (e) {
+      if (prevOnlineKeys.indexOf(onlineKey(e)) === -1) {
+        showToast("New visitor — " + prettyWhere(e.where || ""), prettyPage(e.page || "/") + " · just now");
+      }
+    });
+  }
+  prevOnlineKeys = curKeys;
 }
 
 /* ---------- Timezone -> approximate place (city, lat, lng) ---------- */
@@ -643,6 +678,7 @@ async function loadLive() {
       seenTz[e.where || ""] = true;
     });
     globe.dots = dots;
+    pingNewVisitors(online);
     document.getElementById("globeCount").textContent = online.length + (online.length === 1 ? " live" : " live");
     var liveList = document.getElementById("liveList");
     if (online.length) {
