@@ -14,6 +14,8 @@ Endpoints:
 import json
 import os
 import re
+import secrets
+import string
 import time
 from pathlib import Path
 
@@ -25,6 +27,9 @@ DATA.mkdir(parents=True, exist_ok=True)
 EVENTS = DATA / "events.jsonl"
 SITE_KEY = os.environ.get("AC_SITE_KEY", "")
 READ_KEY = os.environ.get("AC_READ_KEY", "")  # private read key for GET /live; only the dashboard knows it (never in site JS)
+CODES = DATA / "access_codes.json"  # per-device access codes for Yeukai's dashboard (code only Keita can give)
+MAX_FAILED_ATTEMPTS = 5             # wrong-code guesses before a device is locked out
+LOCKOUT_SECONDS = 15 * 60           # 15-minute lockout after too many wrong guesses
 
 ONLINE_WINDOW = 75          # seconds since last heartbeat to count as "on the site now"
 MAX_EVENTS = 2000           # keep the newest N events in the file
@@ -109,6 +114,156 @@ def _source(referrer: str, page: str) -> str:
     return "other"
 
 
+# --- Access codes for Yeukai's dashboard -----------------------------------
+# A device requests access -> server creates a random 6-digit code (pending).
+# Keita gets the code by email (via the cron polling /pending-requests) and
+# gives it to Yeukai. She enters it -> device is approved permanently.
+# The code is never returned by /request-access; only the master key holder
+# (via /pending-requests) and Keita (via email) ever see it.
+
+def _read_codes():
+    if not CODES.exists():
+        return {"devices": {}}
+    try:
+        return json.loads(CODES.read_text())
+    except Exception:
+        return {"devices": {}}
+
+
+def _write_codes(store: dict):
+    CODES.write_text(json.dumps(store, indent=2))
+
+
+def _new_code() -> str:
+    return "".join(secrets.choice(string.digits) for _ in range(6))
+
+
+def _master_ok(req: Request) -> bool:
+    """True if the request carries the master READ_KEY (query or header)."""
+    if not READ_KEY:
+        return False
+    provided = req.query_params.get("key") or req.headers.get("x-read-key")
+    return provided == READ_KEY
+
+
+def _device_authorized(req: Request) -> bool:
+    """True if the request carries an approved (device_id, code) pair."""
+    device_id = req.query_params.get("device_id") or req.headers.get("x-device-id")
+    code = req.query_params.get("code") or req.headers.get("x-device-code")
+    if not device_id or not code:
+        return False
+    dev = _read_codes().get("devices", {}).get(device_id)
+    return bool(dev and dev.get("status") == "approved" and dev.get("code") == code)
+
+
+@app.post("/request-access")
+async def request_access(req: Request):
+    """Create (or return) a pending access request for a device.
+    Body: {device_id, name}. The code is NEVER returned here."""
+    body = await req.json()
+    device_id = str(body.get("device_id") or "")[:100]
+    name = str(body.get("name") or "")[:100]
+    if not device_id:
+        return {"ok": False, "error": "device_id required"}
+    store = _read_codes()
+    devices = store.setdefault("devices", {})
+    dev = devices.get(device_id)
+    if dev and dev.get("status") == "approved":
+        return {"ok": True, "status": "approved"}
+    if dev and dev.get("status") == "pending":
+        if dev.get("emailed"):
+            # Code was already emailed once and she is asking again (lost it?).
+            # Issue a fresh code so the cron emails the new one.
+            dev["code"] = _new_code()
+            dev["emailed"] = False
+            dev["failed_attempts"] = 0
+            dev["locked_until"] = 0
+            _write_codes(store)
+        return {"ok": True, "status": "pending"}
+    devices[device_id] = {
+        "code": _new_code(),
+        "name": name,
+        "status": "pending",
+        "created_at": int(time.time()),
+        "approved_at": None,
+        "emailed": False,
+        "failed_attempts": 0,
+        "locked_until": 0,
+    }
+    _write_codes(store)
+    return {"ok": True, "status": "pending"}
+
+
+@app.post("/verify-code")
+async def verify_code(req: Request):
+    """Check a code for a device. Body: {device_id, code}.
+    Locks the device for 15 minutes after 5 wrong guesses."""
+    body = await req.json()
+    device_id = str(body.get("device_id") or "")[:100]
+    code = str(body.get("code") or "")[:20]
+    if not device_id or not code:
+        return {"ok": False, "error": "device_id and code required"}
+    store = _read_codes()
+    dev = store.get("devices", {}).get(device_id)
+    if not dev:
+        return {"ok": False, "error": "no request for this device"}
+    now = int(time.time())
+    if dev.get("locked_until", 0) > now:
+        return {"ok": False, "error": "locked", "retry_after": dev["locked_until"] - now}
+    if dev.get("status") == "approved":
+        return {"ok": code == dev.get("code"), "status": "approved"} if code == dev.get("code") else {"ok": False, "error": "wrong code"}
+    if code != dev.get("code"):
+        dev["failed_attempts"] = dev.get("failed_attempts", 0) + 1
+        attempts_left = MAX_FAILED_ATTEMPTS - dev["failed_attempts"]
+        if dev["failed_attempts"] >= MAX_FAILED_ATTEMPTS:
+            dev["locked_until"] = now + LOCKOUT_SECONDS
+            dev["failed_attempts"] = 0
+            attempts_left = 0
+        _write_codes(store)
+        return {"ok": False, "error": "wrong code", "attempts_left": attempts_left}
+    dev["status"] = "approved"
+    dev["approved_at"] = now
+    dev["failed_attempts"] = 0
+    _write_codes(store)
+    return {"ok": True, "status": "approved"}
+
+
+@app.get("/pending-requests")
+def pending_requests(req: Request):
+    """Master-key only: list pending access requests (with their codes)
+    so the email cron can send them to Keita."""
+    if not _master_ok(req):
+        return {"ok": False, "error": "unauthorized"}
+    store = _read_codes()
+    pending = []
+    for device_id, dev in store.get("devices", {}).items():
+        if dev.get("status") == "pending":
+            pending.append({
+                "device_id": device_id,
+                "name": dev.get("name", ""),
+                "code": dev.get("code", ""),
+                "created_at": dev.get("created_at", 0),
+                "emailed": dev.get("emailed", False),
+            })
+    return {"ok": True, "pending": pending}
+
+
+@app.post("/ack-request")
+async def ack_request(req: Request):
+    """Master-key only: mark a pending request as emailed (body: {device_id})."""
+    if not _master_ok(req):
+        return {"ok": False, "error": "unauthorized"}
+    body = await req.json()
+    device_id = str(body.get("device_id") or "")[:100]
+    store = _read_codes()
+    dev = store.get("devices", {}).get(device_id)
+    if not dev:
+        return {"ok": False, "error": "no such device"}
+    dev["emailed"] = True
+    _write_codes(store)
+    return {"ok": True}
+
+
 @app.post("/hit")
 async def hit(req: Request):
     body = await req.json()
@@ -156,9 +311,11 @@ async def ingest_log(req: Request):
 
 @app.get("/live")
 def live(req: Request):
+    # Auth: master read key, OR an approved (device_id, code) pair.
+    # (If no READ_KEY is configured the endpoint stays open, as before.)
     if READ_KEY:
         provided = req.query_params.get("key") or req.headers.get("x-read-key")
-        if provided != READ_KEY:
+        if provided != READ_KEY and not _device_authorized(req):
             return {"ok": False, "error": "unauthorized"}
     now = time.time()
     events = _read_events()
