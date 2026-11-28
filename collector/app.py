@@ -264,6 +264,14 @@ async def ack_request(req: Request):
     return {"ok": True}
 
 
+def _site(body: dict) -> str:
+    """Which site an event belongs to. Only 'abundant' and 'knorth' are
+    valid; anything else (including a missing value) is 'abundant', so
+    older events and the original beacon keep working."""
+    s = str(body.get("site") or "abundant")[:20].lower()
+    return s if s in ("abundant", "knorth") else "abundant"
+
+
 @app.post("/hit")
 async def hit(req: Request):
     body = await req.json()
@@ -274,6 +282,7 @@ async def hit(req: Request):
     ai = _ai_match(ua)
     ev = {
         "kind": "bot" if ai else "visit",
+        "site": _site(body),
         "page": page,
         "source": _source(str(body.get("referrer") or ""), page),
         "where": str(body.get("tz") or "")[:60],
@@ -297,6 +306,7 @@ async def ingest_log(req: Request):
     ai = _ai_match(ua)
     ev = {
         "kind": "bot" if ai else "visit",
+        "site": _site(body),
         "page": str(body.get("path") or "/")[:200],
         "source": str(body.get("source") or "server-log")[:60],
         "where": "",
@@ -313,12 +323,23 @@ async def ingest_log(req: Request):
 def live(req: Request):
     # Auth: master read key, OR an approved (device_id, code) pair.
     # (If no READ_KEY is configured the endpoint stays open, as before.)
+    is_master = False
     if READ_KEY:
         provided = req.query_params.get("key") or req.headers.get("x-read-key")
-        if provided != READ_KEY and not _device_authorized(req):
+        is_master = provided == READ_KEY
+        if not is_master and not _device_authorized(req):
             return {"ok": False, "error": "unauthorized"}
+    # Which site's data: device/code auth (Yeukai) always sees 'abundant';
+    # the master key may ask for a site with ?site= (default 'abundant').
+    site = "abundant"
+    if is_master:
+        s = (req.query_params.get("site") or "abundant")[:20].lower()
+        site = s if s in ("abundant", "knorth") else "abundant"
     now = time.time()
     events = _read_events()
+    # Only this site's events (older events have no site field: they count
+    # as 'abundant').
+    events = [e for e in events if e.get("site", "abundant") == site]
     recent = [e for e in events if now - e.get("ts", 0) < 24 * 3600][-100:]
     online = [e for e in recent if now - e.get("ts", 0) < ONLINE_WINDOW]
     # de-duplicate online by (page, device, where) so one tab counts once
