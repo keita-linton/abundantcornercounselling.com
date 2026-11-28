@@ -94,7 +94,7 @@
   .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
   .hero-note{font-size:.9rem;color:var(--muted);margin:14px 0 0}
   .hero-photo{position:relative}
-  .hero-photo img{border-radius:20px;aspect-ratio:4/3.4;object-fit:cover;width:100%;box-shadow:var(--shadow)}
+  .hero-photo img{border-radius:20px;width:100%;height:auto;box-shadow:var(--shadow)}
   .hero-photo .float-card{position:absolute;left:-10px;bottom:18px;max-width:250px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:12px 15px}
   .float-card .fc-t{font-family:"Newsreader",Georgia,serif;font-style:italic;font-size:1.02rem;line-height:1.35;margin:0}
   .float-card .fc-s{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sage-deep);margin:6px 0 0}
@@ -124,7 +124,7 @@
   .reflect p:last-child{margin-bottom:0}
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 14px rgba(46,33,21,.06)}
-  .card img{aspect-ratio:16/10;object-fit:cover;width:100%}
+  .card img{width:100%;height:auto}
   .card .cbody{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
   .card h3{font-family:"Newsreader",Georgia,serif;font-size:1.35rem;font-weight:800;margin:0;line-height:1.15;letter-spacing:-.01em}
   .card p{margin:0;color:var(--ink-soft);font-size:.97rem;flex:1}
@@ -132,7 +132,7 @@
   .tagchip{align-self:flex-start;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--honey-soft);color:var(--honey-deep);border-radius:999px;padding:4px 10px}
   @media (prefers-color-scheme: dark){ .tagchip{color:var(--honey)} }
   .spotlight{display:grid;grid-template-columns:.92fr 1.08fr;gap:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
-  .spotlight img{height:100%;min-height:280px;object-fit:cover;width:100%}
+  .spotlight img{aspect-ratio:1/1;width:100%;height:auto;object-fit:cover}
   .spotlight .sbody{background:var(--banner-bg);color:var(--banner-ink);padding:28px 30px;display:flex;flex-direction:column;gap:12px;justify-content:center}
   .spotlight h3{font-family:"Newsreader",Georgia,serif;font-size:1.9rem;font-weight:800;margin:0;line-height:1.08;letter-spacing:-.015em}
   .spotlight h3 em{color:var(--honey);font-style:italic}
