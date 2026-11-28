@@ -163,7 +163,7 @@ async function loadLive() {
   try {
     var r = await fetch(API + "/live?device_id=" + encodeURIComponent(deviceId) + "&code=" + encodeURIComponent(code));
     var j = await r.json();
-    if (!j.ok) {
+    if (j.error) {
       localStorage.removeItem("ac_device_code");
       code = "";
       if (timer) clearInterval(timer);
