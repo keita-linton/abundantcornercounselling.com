@@ -24,6 +24,7 @@ DATA = Path(os.environ.get("AC_DATA", "/data"))
 DATA.mkdir(parents=True, exist_ok=True)
 EVENTS = DATA / "events.jsonl"
 SITE_KEY = os.environ.get("AC_SITE_KEY", "")
+READ_KEY = os.environ.get("AC_READ_KEY", "")  # private read key for GET /live; only the dashboard knows it (never in site JS)
 
 ONLINE_WINDOW = 75          # seconds since last heartbeat to count as "on the site now"
 MAX_EVENTS = 2000           # keep the newest N events in the file
@@ -154,7 +155,11 @@ async def ingest_log(req: Request):
 
 
 @app.get("/live")
-def live():
+def live(req: Request):
+    if READ_KEY:
+        provided = req.query_params.get("key") or req.headers.get("x-read-key")
+        if provided != READ_KEY:
+            return {"ok": False, "error": "unauthorized"}
     now = time.time()
     events = _read_events()
     recent = [e for e in events if now - e.get("ts", 0) < 24 * 3600][-100:]
