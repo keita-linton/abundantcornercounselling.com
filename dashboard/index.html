@@ -4,81 +4,242 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Abundant Corner — Website Traffic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
 <style>
-  :root { color-scheme: light; }
+  :root {
+    --bg: #faf3e3; --bg-soft: #f5eee0; --surface: #fffdf7; --surface-2: #f6efe1;
+    --ink: #2e2115; --ink-soft: #57452f; --muted: #7a6750;
+    --line: #e9dfc9; --line-strong: #e2d3b8;
+    --honey: #d98e1f; --honey-deep: #a96a0b; --honey-soft: #f7e3ba;
+    --sage: #6d7a5f; --sage-deep: #4c5840; --sage-soft: #e6ead9;
+    --clay: #b2603c; --clay-soft: #f2dcd2;
+    --green: #2f9e5f; --green-soft: #dff3e6;
+    --amber: #b7791f;
+    --shadow: 0 8px 24px rgba(46,33,21,.08);
+    --shadow-lg: 0 18px 44px rgba(46,33,21,.12);
+    --radius: 18px;
+    color-scheme: light;
+  }
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f6f4ef; color: #2b2b26; }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 48px; }
-  h1 { font-size: 26px; margin: 6px 0 4px; color: #33523f; }
-  .sub { color: #6b6b60; margin: 0 0 22px; font-size: 15px; }
-  .card { background: #fff; border: 1px solid #e4e0d6; border-radius: 14px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
-  .big { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .stat { text-align: center; padding: 14px 6px; }
-  .stat .num { font-size: 34px; font-weight: 700; color: #33523f; line-height: 1.1; }
-  .stat .lbl { font-size: 13px; color: #6b6b60; margin-top: 4px; }
+  body { margin: 0; font-family: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 30px 20px 60px; }
+
+  /* ---------- Header ---------- */
+  header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px; margin-bottom: 22px; }
+  .brand h1 { font-family: "Newsreader", Georgia, serif; font-size: 38px; font-weight: 600; line-height: 1.05; margin: 0; color: var(--ink); letter-spacing: -.01em; }
+  .brand h1 em { font-style: italic; color: var(--honey-deep); }
+  .brand p { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+  .live-pill { display: inline-flex; align-items: center; gap: 9px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 9px 15px; box-shadow: var(--shadow); font-weight: 700; font-size: 14px; color: var(--ink-soft); }
+  .live-pill .txt small { display: block; font-weight: 600; color: var(--muted); font-size: 11.5px; line-height: 1.2; }
+
+  /* Pulsing green dot — the connection beam */
+  .pulse-dot { position: relative; width: 12px; height: 12px; border-radius: 50%; background: var(--green); flex: none; }
+  .pulse-dot::before, .pulse-dot::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--green); opacity: 0; animation: ping 2.2s cubic-bezier(0,0,.2,1) infinite; }
+  .pulse-dot::after { animation-delay: 1.1s; }
+  @keyframes ping { 0% { transform: scale(.45); opacity: .9; } 70% { transform: scale(1.5); opacity: 0; } 100% { transform: scale(1.5); opacity: 0; } }
+  .pulse-dot.off { background: var(--amber); }
+  .pulse-dot.off::before, .pulse-dot.off::after { border-color: var(--amber); animation-duration: 1.4s; }
+
+  /* ---------- Cards ---------- */
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; margin-bottom: 18px; }
+  .card h2 { font-family: "Newsreader", Georgia, serif; font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+  .card .hint { color: var(--muted); font-size: 13.5px; margin: 0 0 14px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+  .kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 18px 16px; position: relative; overflow: hidden; }
+  .kpi::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--honey); }
+  .kpi.sage::before { background: var(--sage); }
+  .kpi.clay::before { background: var(--clay); }
+  .kpi.green::before { background: var(--green); }
+  .kpi .num { font-family: "Newsreader", Georgia, serif; font-size: 42px; font-weight: 600; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .kpi .lbl { font-size: 13.5px; font-weight: 700; color: var(--ink-soft); margin-top: 7px; }
+  .kpi .sub { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .kpi .trend { font-size: 12.5px; font-weight: 700; margin-top: 6px; }
+  .trend.up { color: var(--green); } .trend.down { color: var(--clay); } .trend.flat { color: var(--muted); }
+
+  /* ---------- Globe ---------- */
+  .globe-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; align-items: start; }
+  .globe-wrap { position: relative; background: radial-gradient(120% 120% at 50% 0%, #3d4a35 0%, #2c3626 55%, #1f2718 100%); border-radius: 14px; overflow: hidden; }
+  .globe-wrap canvas { display: block; width: 100%; height: auto; }
+  .globe-tag { position: absolute; left: 14px; top: 12px; color: #e9e2cf; font-size: 12.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: rgba(20,26,14,.45); border: 1px solid rgba(233,226,207,.25); padding: 6px 10px; border-radius: 999px; backdrop-filter: blur(4px); }
+  .globe-tag .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #4ade9b; margin-right: 6px; box-shadow: 0 0 8px #4ade9b; animation: glow 2.2s ease-in-out infinite; }
+  @keyframes glow { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+  .live-list { list-style: none; margin: 0; padding: 0; }
+  .live-list li { display: flex; align-items: center; gap: 10px; padding: 10px 2px; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .live-list li:last-child { border-bottom: 0; }
+  .live-list .mdot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); flex: none; box-shadow: 0 0 0 4px var(--green-soft); animation: glow 2.2s ease-in-out infinite; }
+  .live-list .where { font-weight: 700; }
+  .live-list .page { color: var(--muted); font-size: 13.5px; margin-left: auto; text-align: right; }
+  .empty { color: var(--muted); font-size: 14.5px; }
+
+  /* ---------- Chart ---------- */
+  .chart-wrap { position: relative; }
+  .chart-wrap canvas { display: block; width: 100%; height: 190px; }
+  .chart-foot { display: flex; justify-content: space-between; color: var(--muted); font-size: 12.5px; margin-top: 6px; }
+
+  /* ---------- Tables that read like charts ---------- */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   table { width: 100%; border-collapse: collapse; font-size: 15px; }
-  td, th { padding: 8px 4px; border-bottom: 1px solid #eee9dd; text-align: left; }
-  td:last-child, th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
-  th { color: #6b6b60; font-weight: 600; font-size: 13px; }
-  .muted { color: #6b6b60; font-size: 13px; }
-  input[type="text"], input[type="tel"] { width: 100%; padding: 12px; font-size: 18px; border: 1px solid #cfc9b8; border-radius: 10px; margin: 6px 0 12px; letter-spacing: 2px; }
-  button { background: #33523f; color: #fff; border: 0; border-radius: 10px; padding: 13px 20px; font-size: 16px; cursor: pointer; width: 100%; }
-  button:disabled { opacity: .55; cursor: default; }
-  button.secondary { background: #fff; color: #33523f; border: 1px solid #33523f; }
-  .err { color: #a33; font-size: 14px; margin-top: 8px; min-height: 18px; }
-  .ok { color: #33523f; font-size: 14px; margin-top: 8px; }
-  .hidden { display: none; }
+  td, th { padding: 9px 4px; text-align: left; vertical-align: middle; }
+  td:last-child, th:last-child { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  th { color: var(--muted); font-weight: 700; font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase; }
+  tbody tr { border-top: 1px solid var(--line); }
+  .bar-row { position: relative; }
+  .bar-row .fill { position: absolute; left: 0; top: 6px; bottom: 6px; border-radius: 8px; background: var(--honey-soft); z-index: 0; }
+  .bar-row.sage .fill { background: var(--sage-soft); }
+  .bar-row td { position: relative; z-index: 1; }
+  .bar-row td:first-child { font-weight: 700; }
+  .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--sage-soft); color: var(--sage-deep); }
+  .pill.honey { background: var(--honey-soft); color: var(--honey-deep); }
+  .pill.clay { background: var(--clay-soft); color: var(--clay); }
+
+  /* Devices segmented bar */
+  .seg { display: flex; height: 12px; border-radius: 999px; overflow: hidden; background: var(--bg-soft); margin: 12px 0 10px; }
+  .seg span { display: block; height: 100%; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; color: var(--ink-soft); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
+
+  /* Recent feed */
   ul.clean { list-style: none; margin: 0; padding: 0; font-size: 15px; }
-  ul.clean li { padding: 7px 0; border-bottom: 1px solid #eee9dd; display: flex; justify-content: space-between; gap: 10px; }
-  ul.clean li span:last-child { color: #6b6b60; font-size: 13px; white-space: nowrap; }
-  .refresh { font-size: 13px; color: #6b6b60; text-align: center; margin-top: 6px; }
+  ul.clean li { padding: 9px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+  ul.clean li:last-child { border-bottom: 0; }
+  ul.clean li span:last-child { color: var(--muted); font-size: 13px; white-space: nowrap; }
+  .muted { color: var(--muted); font-size: 13.5px; }
+
+  /* ---------- Lock screen ---------- */
+  .lock-wrap { max-width: 560px; margin: 30px auto 0; }
+  .lock-card { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow-lg); padding: 34px 30px; text-align: center; }
+  .lock-card h2 { font-family: "Newsreader", Georgia, serif; font-size: 28px; margin: 0 0 8px; }
+  .lock-card p { color: var(--muted); margin: 0 0 20px; font-size: 15px; }
+  .lock-mark { width: 62px; height: 62px; border-radius: 50%; background: var(--honey-soft); color: var(--honey-deep); display: inline-flex; align-items: center; justify-content: center; font-size: 27px; margin-bottom: 14px; }
+  input[type="text"], input[type="tel"] { width: 100%; padding: 13px 14px; font-size: 18px; border: 1.5px solid var(--line-strong); border-radius: 12px; margin: 6px 0 12px; letter-spacing: 2px; background: #fff; color: var(--ink); font-family: inherit; text-align: center; }
+  input:focus { outline: 3px solid var(--honey-soft); border-color: var(--honey); }
+  label.lbl { display: block; text-align: left; font-size: 13.5px; font-weight: 700; color: var(--ink-soft); }
+  button { background: var(--sage-deep); color: #fff; border: 0; border-radius: 12px; padding: 14px 20px; font-size: 16px; font-weight: 700; cursor: pointer; width: 100%; font-family: inherit; }
+  button:hover { background: var(--sage); }
+  button:disabled { opacity: .55; cursor: default; }
+  button.secondary { background: #fff; color: var(--sage-deep); border: 1.5px solid var(--sage-deep); }
+  .err { color: #a33; font-size: 14px; margin-top: 8px; min-height: 18px; }
+  .ok { color: var(--sage-deep); font-size: 14px; margin-top: 8px; min-height: 18px; }
+  .hidden { display: none !important; }
+  .foot { text-align: center; color: var(--muted); font-size: 13px; margin-top: 8px; }
+  .foot .priv { margin-top: 6px; font-size: 12.5px; }
+  .refresh { font-size: 13px; color: var(--muted); text-align: center; margin-top: 6px; }
+  @media (max-width: 760px) {
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .globe-grid, .split { grid-template-columns: 1fr; }
+    .brand h1 { font-size: 30px; }
+    .kpi .num { font-size: 34px; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Abundant Corner</h1>
-  <p class="sub">Your website traffic, live.</p>
 
   <!-- Locked / access screen -->
-  <div id="lock" class="card">
-    <h2 style="margin:0 0 6px;font-size:19px;">Access needed</h2>
-    <p class="muted" style="margin:0 0 14px;">This dashboard is protected. Ask Keita for your access code — he is the only one who can give it to you. Once this device is unlocked, it stays unlocked.</p>
-    <div id="requestBox">
-      <label for="name" class="muted">Your name (so Keita knows who is asking)</label>
-      <input id="name" type="text" value="Yeukai" autocomplete="name">
-      <button id="requestBtn" onclick="requestAccess()">Request access code</button>
-      <div id="requestMsg" class="ok"></div>
+  <div id="lock" class="lock-wrap">
+    <div class="lock-card">
+      <div class="lock-mark">&#10022;</div>
+      <h2>Your traffic, just for you</h2>
+      <p>This dashboard is protected. Ask Keita for your access code — he is the only one who can give it to you. Once this device is unlocked, it stays unlocked.</p>
+      <div id="requestBox">
+        <label class="lbl" for="name">Your name (so Keita knows who is asking)</label>
+        <input id="name" type="text" value="Yeukai" autocomplete="name">
+        <button id="requestBtn" onclick="requestAccess()">Request access code</button>
+        <div id="requestMsg" class="ok"></div>
+      </div>
+      <div style="margin-top:20px;">
+        <label class="lbl" for="code">Enter the 6-digit code Keita gave you</label>
+        <input id="code" type="tel" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="one-time-code">
+        <button id="verifyBtn" onclick="verifyCode()">Unlock this device</button>
+        <div id="codeErr" class="err"></div>
+      </div>
     </div>
-    <div id="codeBox" style="margin-top:16px;">
-      <label for="code" class="muted">Enter the 6-digit code Keita gave you</label>
-      <input id="code" type="tel" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="one-time-code">
-      <button id="verifyBtn" onclick="verifyCode()">Unlock this device</button>
-      <div id="codeErr" class="err"></div>
-    </div>
+    <p class="foot">Abundant Corner Counselling &middot; Private — only you can see this page.</p>
   </div>
 
   <!-- Dashboard -->
   <div id="dash" class="hidden">
-    <div class="card big">
-      <div class="stat"><div class="num" id="onlineNow">–</div><div class="lbl">people on your site now</div></div>
-      <div class="stat"><div class="num" id="total24">–</div><div class="lbl">visits in the last 24 hours</div></div>
-      <div class="stat"><div class="num" id="bots24">–</div><div class="lbl">AI / bot visits (24h)</div></div>
+    <header>
+      <div class="brand">
+        <h1>Abundant <em>Corner</em></h1>
+        <p>Your website traffic, live &mdash; a gentle look at who is finding you.</p>
+      </div>
+      <div class="live-pill" id="livePill">
+        <span class="pulse-dot" id="pulseDot"></span>
+        <span class="txt"><span id="liveState">Live</span><small id="liveSub">connected &middot; updating every 30s</small></span>
+      </div>
+    </header>
+
+    <div class="kpis">
+      <div class="kpi green"><div class="num" id="onlineNow">&ndash;</div><div class="lbl">People on your site now</div><div class="sub" id="onlineSub">right this moment</div></div>
+      <div class="kpi"><div class="num" id="total24">&ndash;</div><div class="lbl">Visits in the last 24 hours</div><div class="sub" id="totalSub">all visitors, including AI</div><div class="trend flat" id="trend24"></div></div>
+      <div class="kpi sage"><div class="num" id="bots24">&ndash;</div><div class="lbl">AI &amp; bot visits (24h)</div><div class="sub" id="botsSub">search engines &amp; AI crawlers</div></div>
+      <div class="kpi clay"><div class="num" id="topPageCount">&ndash;</div><div class="lbl" id="topPageName">Most visited page</div><div class="sub">in the last 24 hours</div></div>
     </div>
+
     <div class="card">
-      <h2 style="margin:0 0 8px;font-size:18px;">Most visited pages</h2>
-      <table><thead><tr><th>Page</th><th>Visits</th></tr></thead><tbody id="pagesBody"><tr><td colspan="2" class="muted">Loading…</td></tr></tbody></table>
+      <h2>Where your visitors are right now</h2>
+      <p class="hint">Each glowing dot is someone on your site at this moment. The globe turns slowly — dots fade in as visitors arrive.</p>
+      <div class="globe-grid">
+        <div class="globe-wrap">
+          <canvas id="globe" width="640" height="420"></canvas>
+          <span class="globe-tag"><span class="dot"></span><span id="globeCount">0 live</span></span>
+        </div>
+        <div>
+          <h3 style="font-family:'Newsreader',Georgia,serif;font-size:19px;margin:2px 0 6px;">Live right now</h3>
+          <ul class="live-list" id="liveList"><li><span class="empty">No one on the site at this moment.</span></li></ul>
+          <h3 style="font-family:'Newsreader',Georgia,serif;font-size:19px;margin:18px 0 6px;">Places visiting today</h3>
+          <ul class="live-list" id="whereList"><li><span class="empty">No visits yet today.</span></li></ul>
+        </div>
+      </div>
     </div>
+
     <div class="card">
-      <h2 style="margin:0 0 8px;font-size:18px;">Where visitors come from</h2>
-      <table><thead><tr><th>Source</th><th>Visits</th></tr></thead><tbody id="srcBody"><tr><td colspan="2" class="muted">Loading…</td></tr></tbody></table>
+      <h2>Visits over the last 24 hours</h2>
+      <p class="hint">Each bar is one hour. The gold bar is your busiest hour.</p>
+      <div class="chart-wrap"><canvas id="chart" width="960" height="190"></canvas></div>
+      <div class="chart-foot"><span id="chartStart">24 hours ago</span><span id="chartPeak"></span><span>now</span></div>
     </div>
+
+    <div class="split">
+      <div class="card">
+        <h2>Most visited pages</h2>
+        <p class="hint">What people are reading.</p>
+        <table><thead><tr><th>Page</th><th>Visits</th></tr></thead><tbody id="pagesBody"><tr><td colspan="2" class="muted">Loading&hellip;</td></tr></tbody></table>
+      </div>
+      <div class="card">
+        <h2>Where visitors come from</h2>
+        <p class="hint">How people find you.</p>
+        <table><thead><tr><th>Source</th><th>Visits</th></tr></thead><tbody id="srcBody"><tr><td colspan="2" class="muted">Loading&hellip;</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="card">
+        <h2>How people visit</h2>
+        <p class="hint">Phone, tablet or computer.</p>
+        <div class="seg" id="devSeg"><span style="width:100%;background:var(--sage-soft);"></span></div>
+        <div class="legend" id="devLegend"></div>
+      </div>
+      <div class="card">
+        <h2>AI visitors</h2>
+        <p class="hint">Search engines &amp; AI tools reading your pages.</p>
+        <table><thead><tr><th>Visitor</th><th>Visits</th></tr></thead><tbody id="botBody"><tr><td colspan="2" class="muted">Loading&hellip;</td></tr></tbody></table>
+      </div>
+    </div>
+
     <div class="card">
-      <h2 style="margin:0 0 8px;font-size:18px;">Recent visitors</h2>
-      <ul class="clean" id="recentList"><li><span class="muted">Loading…</span></li></ul>
+      <h2>Recent visitors</h2>
+      <p class="hint">The latest arrivals, newest first. No one is ever identified — this is only the page and the time.</p>
+      <ul class="clean" id="recentList"><li><span class="muted">Loading&hellip;</span></li></ul>
     </div>
     <p class="refresh" id="refreshNote">Updates every 30 seconds.</p>
+    <p class="foot"><span class="priv">Private by design: no cookies, no visitor names, no addresses — only the page, the time and a rough region. Only you can see this page.</span></p>
   </div>
 </div>
+
 <script>
 var API = "https://abundant-traffic.fly.dev";
 var deviceId = localStorage.getItem("ac_device_id");
@@ -88,9 +249,110 @@ if (!deviceId) {
 }
 var code = localStorage.getItem("ac_device_code") || "";
 var timer = null;
+var lastData = null;
+var connected = false;
 
 function show(el, on) { document.getElementById(el).classList.toggle("hidden", !on); }
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (m) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]; }); }
+function fmtTime(ts) { var d = new Date(ts * 1000); return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }); }
+function topRows(obj, n) { return Object.entries(obj || {}).sort(function (a, b) { return b[1] - a[1]; }).slice(0, n); }
+function prettyPage(p) {
+  if (!p || p === "/") return "Home page";
+  var s = String(p).replace(/^\/|\/$/g, "").replace(/-/g, " ");
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+function prettySource(s) {
+  var m = { direct: "Direct — typed your address", google: "Google", bing: "Bing", facebook: "Facebook", instagram: "Instagram", site: "From your own site", other: "Other websites", "server-log": "Search engines" };
+  return m[s] || (s ? s.charAt(0).toUpperCase() + s.slice(1) : "Direct");
+}
+function prettyWhere(tz) {
+  if (!tz) return "Somewhere nearby";
+  var m = TZ_CITY[tz];
+  if (m) return m[2];
+  var parts = tz.split("/");
+  var city = (parts[1] || parts[0] || tz).replace(/_/g, " ");
+  return city.charAt(0).toUpperCase() + city.slice(1);
+}
 
+/* ---------- Timezone -> approximate place (city, lat, lng) ---------- */
+var TZ_CITY = {
+  "America/Edmonton": [53.54, -113.49, "Edmonton, Canada"],
+  "America/Vancouver": [49.28, -123.12, "Vancouver, Canada"],
+  "America/Toronto": [43.65, -79.38, "Toronto, Canada"],
+  "America/Montreal": [45.50, -73.57, "Montréal, Canada"],
+  "America/Winnipeg": [49.90, -97.14, "Winnipeg, Canada"],
+  "America/Calgary": [51.05, -114.07, "Calgary, Canada"],
+  "America/Saskatoon": [52.13, -106.67, "Saskatoon, Canada"],
+  "America/Regina": [50.45, -104.62, "Regina, Canada"],
+  "America/Halifax": [44.65, -63.57, "Halifax, Canada"],
+  "America/St_Johns": [47.56, -52.71, "St. John's, Canada"],
+  "America/New_York": [40.71, -74.01, "New York, USA"],
+  "America/Chicago": [41.88, -87.63, "Chicago, USA"],
+  "America/Denver": [39.74, -104.99, "Denver, USA"],
+  "America/Los_Angeles": [34.05, -118.24, "Los Angeles, USA"],
+  "America/Phoenix": [33.45, -112.07, "Phoenix, USA"],
+  "America/Anchorage": [61.22, -149.90, "Anchorage, USA"],
+  "America/Mexico_City": [19.43, -99.13, "Mexico City, Mexico"],
+  "America/Sao_Paulo": [-23.55, -46.63, "São Paulo, Brazil"],
+  "America/Bogota": [4.71, -74.07, "Bogotá, Colombia"],
+  "America/Lima": [-12.05, -77.04, "Lima, Peru"],
+  "America/Santiago": [-33.45, -70.67, "Santiago, Chile"],
+  "America/Argentina/Buenos_Aires": [-34.60, -58.38, "Buenos Aires, Argentina"],
+  "Europe/London": [51.51, -0.13, "London, UK"],
+  "Europe/Dublin": [53.35, -6.26, "Dublin, Ireland"],
+  "Europe/Paris": [48.85, 2.35, "Paris, France"],
+  "Europe/Berlin": [52.52, 13.41, "Berlin, Germany"],
+  "Europe/Madrid": [40.42, -3.70, "Madrid, Spain"],
+  "Europe/Rome": [41.90, 12.50, "Rome, Italy"],
+  "Europe/Amsterdam": [52.37, 4.90, "Amsterdam, Netherlands"],
+  "Europe/Brussels": [50.85, 4.35, "Brussels, Belgium"],
+  "Europe/Zurich": [47.38, 8.54, "Zurich, Switzerland"],
+  "Europe/Vienna": [48.21, 16.37, "Vienna, Austria"],
+  "Europe/Stockholm": [59.33, 18.07, "Stockholm, Sweden"],
+  "Europe/Oslo": [59.91, 10.75, "Oslo, Norway"],
+  "Europe/Copenhagen": [55.68, 12.57, "Copenhagen, Denmark"],
+  "Europe/Helsinki": [60.17, 24.94, "Helsinki, Finland"],
+  "Europe/Athens": [37.98, 23.73, "Athens, Greece"],
+  "Europe/Warsaw": [52.23, 21.01, "Warsaw, Poland"],
+  "Europe/Lisbon": [38.72, -9.14, "Lisbon, Portugal"],
+  "Europe/Moscow": [55.76, 37.62, "Moscow, Russia"],
+  "Europe/Istanbul": [41.01, 28.98, "Istanbul, Türkiye"],
+  "Europe/Kyiv": [50.45, 30.52, "Kyiv, Ukraine"],
+  "Africa/Cairo": [30.04, 31.24, "Cairo, Egypt"],
+  "Africa/Lagos": [6.52, 3.38, "Lagos, Nigeria"],
+  "Africa/Johannesburg": [-26.20, 28.05, "Johannesburg, South Africa"],
+  "Africa/Nairobi": [-1.29, 36.82, "Nairobi, Kenya"],
+  "Africa/Casablanca": [33.57, -7.59, "Casablanca, Morocco"],
+  "Asia/Dubai": [25.20, 55.27, "Dubai, UAE"],
+  "Asia/Jerusalem": [31.77, 35.21, "Jerusalem, Israel"],
+  "Asia/Kolkata": [19.08, 72.88, "Mumbai, India"],
+  "Asia/Karachi": [24.86, 67.01, "Karachi, Pakistan"],
+  "Asia/Dhaka": [23.81, 90.41, "Dhaka, Bangladesh"],
+  "Asia/Bangkok": [13.76, 100.50, "Bangkok, Thailand"],
+  "Asia/Singapore": [1.35, 103.82, "Singapore"],
+  "Asia/Kuala_Lumpur": [3.14, 101.69, "Kuala Lumpur, Malaysia"],
+  "Asia/Jakarta": [-6.21, 106.85, "Jakarta, Indonesia"],
+  "Asia/Manila": [14.60, 120.98, "Manila, Philippines"],
+  "Asia/Hong_Kong": [22.32, 114.17, "Hong Kong"],
+  "Asia/Shanghai": [31.23, 121.47, "Shanghai, China"],
+  "Asia/Tokyo": [35.68, 139.69, "Tokyo, Japan"],
+  "Asia/Seoul": [37.57, 126.98, "Seoul, South Korea"],
+  "Asia/Taipei": [25.03, 121.57, "Taipei, Taiwan"],
+  "Australia/Sydney": [-33.87, 151.21, "Sydney, Australia"],
+  "Australia/Melbourne": [-37.81, 144.96, "Melbourne, Australia"],
+  "Australia/Brisbane": [-27.47, 153.03, "Brisbane, Australia"],
+  "Australia/Perth": [-31.95, 115.86, "Perth, Australia"],
+  "Pacific/Auckland": [-36.85, 174.76, "Auckland, New Zealand"],
+  "Pacific/Honolulu": [21.31, -157.86, "Honolulu, USA"],
+  "Atlantic/Reykjavik": [64.15, -21.94, "Reykjavik, Iceland"]
+};
+function tzLatLng(tz) {
+  var m = TZ_CITY[tz];
+  if (m) return [m[0], m[1]];
+  return null;
+}
+
+/* ---------- Access ---------- */
 async function requestAccess() {
   var btn = document.getElementById("requestBtn");
   var msg = document.getElementById("requestMsg");
@@ -150,13 +412,142 @@ async function verifyCode() {
   btn.disabled = false;
 }
 
-function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (m) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]; }); }
-function fmtTime(ts) {
-  var d = new Date(ts * 1000);
-  return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+function setConn(on) {
+  connected = on;
+  var dot = document.getElementById("pulseDot");
+  var state = document.getElementById("liveState");
+  var sub = document.getElementById("liveSub");
+  if (!dot) return;
+  if (on) {
+    dot.classList.remove("off");
+    state.textContent = "Live";
+    sub.textContent = "connected · updating every 30s";
+  } else {
+    dot.classList.add("off");
+    state.textContent = "Reconnecting";
+    sub.textContent = "connection lost — trying again";
+  }
 }
-function topRows(obj, n) {
-  return Object.entries(obj || {}).sort(function (a, b) { return b[1] - a[1]; }).slice(0, n);
+
+/* ---------- Globe ---------- */
+var globe = { rot: 0.6, dots: [], t0: Date.now() };
+var CITY_DOTS = [
+  [51.5, -0.13], [40.7, -74.0], [34.0, -118.2], [41.9, -87.6], [48.9, 2.35], [52.5, 13.4],
+  [55.8, 37.6], [19.1, 72.9], [31.2, 121.5], [35.7, 139.7], [22.3, 114.2], [1.35, 103.8],
+  [-23.5, -46.6], [-33.9, 18.4], [30.0, 31.2], [25.2, 55.3], [-33.9, 151.2], [43.7, -79.4],
+  [49.3, -123.1], [53.5, -113.5], [37.6, 127.0], [13.8, 100.5], [6.5, 3.4], [-1.3, 36.8],
+  [41.0, 29.0], [52.2, 21.0], [59.3, 18.1], [60.2, 24.9], [-34.6, -58.4], [47.4, 8.5]
+];
+function project(lat, lon, R, cx, cy) {
+  var la = lat * Math.PI / 180, lo = (lon + globe.rot * 180 / Math.PI) * Math.PI / 180;
+  var x = Math.cos(la) * Math.sin(lo), y = Math.sin(la), z = Math.cos(la) * Math.cos(lo);
+  return { x: cx + x * R, y: cy - y * R, z: z };
+}
+function drawGlobe() {
+  var cv = document.getElementById("globe");
+  if (!cv || document.getElementById("dash").classList.contains("hidden")) return;
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+  ctx.clearRect(0, 0, W, H);
+  var cx = W / 2, cy = H / 2 + 6, R = Math.min(W, H) / 2 - 14;
+  /* sphere */
+  var g = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.4, R * 0.1, cx, cy, R);
+  g.addColorStop(0, "#5a6b4a"); g.addColorStop(0.55, "#3d4a35"); g.addColorStop(1, "#232d1e");
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.strokeStyle = "rgba(233,226,207,.28)"; ctx.lineWidth = 1.2; ctx.stroke();
+  /* graticule */
+  ctx.strokeStyle = "rgba(233,226,207,.13)"; ctx.lineWidth = 1;
+  var la, lo, p, i;
+  for (la = -60; la <= 60; la += 30) {
+    ctx.beginPath();
+    for (lo = -180; lo <= 180; lo += 6) {
+      p = project(la, lo, R, cx, cy);
+      if (p.z < -0.02) continue;
+      if (lo === -180) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+    }
+    ctx.stroke();
+  }
+  for (lo = -180; lo < 180; lo += 30) {
+    ctx.beginPath();
+    for (la = -80; la <= 80; la += 4) {
+      p = project(la, lo, R, cx, cy);
+      if (p.z < -0.02) continue;
+      if (la === -80) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+    }
+    ctx.stroke();
+  }
+  /* faint city dots for texture */
+  ctx.fillStyle = "rgba(233,226,207,.30)";
+  CITY_DOTS.forEach(function (c) {
+    var q = project(c[0], c[1], R, cx, cy);
+    if (q.z > 0.05) { ctx.beginPath(); ctx.arc(q.x, q.y, 1.4, 0, Math.PI * 2); ctx.fill(); }
+  });
+  /* visitor dots — pulsing green */
+  var now = Date.now();
+  globe.dots.forEach(function (d) {
+    var q = project(d.lat, d.lng, R, cx, cy);
+    if (q.z <= 0.02) return;
+    var phase = ((now / 1100) + d.phase) % 1;
+    var rr = 5 + phase * 16;
+    ctx.beginPath(); ctx.arc(q.x, q.y, rr, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(74,222,155," + (0.55 * (1 - phase)) + ")";
+    ctx.lineWidth = 2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(q.x, q.y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = "#4ade9b"; ctx.fill();
+    ctx.beginPath(); ctx.arc(q.x, q.y, 5, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(74,222,155,.9)"; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.beginPath(); ctx.arc(q.x, q.y, 2.2, 0, Math.PI * 2);
+    ctx.fillStyle = "#eafff3"; ctx.fill();
+  });
+  globe.rot += 0.0016;
+  requestAnimationFrame(drawGlobe);
+}
+
+/* ---------- Hourly chart ---------- */
+function drawChart(events) {
+  var cv = document.getElementById("chart");
+  if (!cv) return;
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+  ctx.clearRect(0, 0, W, H);
+  var now = Date.now() / 1000;
+  var buckets = new Array(24).fill(0);
+  (events || []).forEach(function (e) {
+    var h = Math.floor((now - (e.ts || 0)) / 3600);
+    if (h >= 0 && h < 24) buckets[23 - h]++;
+  });
+  var max = Math.max.apply(null, buckets.concat([1]));
+  var padL = 8, padR = 8, padT = 14, padB = 22;
+  var bw = (W - padL - padR) / 24;
+  var peak = 0; buckets.forEach(function (v, i) { if (v > buckets[peak]) peak = i; });
+  buckets.forEach(function (v, i) {
+    var x = padL + i * bw + bw * 0.18;
+    var w = bw * 0.64;
+    var hgt = Math.max(v > 0 ? 4 : 0, (H - padT - padB) * (v / max));
+    var y = H - padB - hgt;
+    ctx.beginPath();
+    ctx.roundRect(x, y, w, hgt, [5, 5, 0, 0]);
+    ctx.fillStyle = i === peak ? "#d98e1f" : (v > 0 ? "#6d7a5f" : "#e9dfc9");
+    ctx.fill();
+    if (v > 0) {
+      ctx.fillStyle = "#57452f"; ctx.font = "600 11px 'Nunito Sans', sans-serif"; ctx.textAlign = "center";
+      ctx.fillText(String(v), x + w / 2, y - 4);
+    }
+  });
+  ctx.fillStyle = "#7a6750"; ctx.font = "12px 'Nunito Sans', sans-serif"; ctx.textAlign = "left";
+  var start = new Date((now - 24 * 3600) * 1000);
+  document.getElementById("chartStart").textContent = "24h ago · " + start.toLocaleTimeString([], { hour: "numeric" });
+  document.getElementById("chartPeak").textContent = buckets[peak] > 0 ? ("Busiest hour: " + buckets[peak] + " visit" + (buckets[peak] === 1 ? "" : "s")) : "No visits in the last 24 hours";
+}
+
+/* ---------- Data ---------- */
+function renderBarRows(tbody, rows, max, cls) {
+  var el = document.getElementById(tbody);
+  if (!rows.length) { el.innerHTML = "<tr><td colspan='2' class='muted'>No visits yet.</td></tr>"; return; }
+  el.innerHTML = rows.map(function (kv) {
+    var pct = max > 0 ? Math.round((kv[1] / max) * 100) : 0;
+    return "<tr class='bar-row " + (cls || "") + "'><td><span class='fill' style='width:" + pct + "%'></span>" + esc(kv[0]) + "</td><td>" + kv[1] + "</td></tr>";
+  }).join("");
 }
 
 async function loadLive() {
@@ -170,34 +561,133 @@ async function loadLive() {
       show("dash", false);
       show("lock", true);
       document.getElementById("codeErr").textContent = "Your access needs to be confirmed again. Please enter your code.";
+      setConn(false);
       return;
     }
+    setConn(true);
+    lastData = j;
     document.getElementById("onlineNow").textContent = j.online_now;
     document.getElementById("total24").textContent = j.total_24h;
     document.getElementById("bots24").textContent = j.bots_24h;
-    document.getElementById("pagesBody").innerHTML = topRows(j.by_page, 8).map(function (kv) {
-      return "<tr><td>" + esc(kv[0]) + "</td><td>" + kv[1] + "</td></tr>";
-    }).join("") || "<tr><td colspan='2' class='muted'>No visits yet.</td></tr>";
-    document.getElementById("srcBody").innerHTML = topRows(j.by_source, 8).map(function (kv) {
-      return "<tr><td>" + esc(kv[0]) + "</td><td>" + kv[1] + "</td></tr>";
-    }).join("") || "<tr><td colspan='2' class='muted'>No visits yet.</td></tr>";
-    var recent = (j.recent || []).slice(0, 10);
-    document.getElementById("recentList").innerHTML = recent.length ? recent.map(function (e) {
-      var label = (e.kind === "bot" ? (e.vendor || "Bot") + " (AI)" : "Visitor");
-      return "<li><span>" + esc(label) + " — " + esc(e.page || "/") + "</span><span>" + fmtTime(e.ts) + "</span></li>";
+
+    /* trend: last 6h vs previous 6h */
+    var now = j.now || Math.floor(Date.now() / 1000);
+    var recent = j.recent || [];
+    var last6 = 0, prev6 = 0;
+    recent.forEach(function (e) {
+      var age = now - (e.ts || 0);
+      if (age < 6 * 3600) last6++;
+      else if (age < 12 * 3600) prev6++;
+    });
+    var tr = document.getElementById("trend24");
+    if (prev6 === 0 && last6 > 0) { tr.textContent = "▲ growing in the last 6 hours"; tr.className = "trend up"; }
+    else if (prev6 > 0) {
+      var pct = Math.round(((last6 - prev6) / prev6) * 100);
+      if (pct > 0) { tr.textContent = "▲ " + pct + "% vs the 6 hours before"; tr.className = "trend up"; }
+      else if (pct < 0) { tr.textContent = "▼ " + Math.abs(pct) + "% vs the 6 hours before"; tr.className = "trend down"; }
+      else { tr.textContent = "— steady vs the 6 hours before"; tr.className = "trend flat"; }
+    } else { tr.textContent = ""; }
+
+    /* top page */
+    var pages = topRows(j.by_page, 8);
+    if (pages.length) {
+      document.getElementById("topPageCount").textContent = pages[0][1];
+      document.getElementById("topPageName").textContent = prettyPage(pages[0][0]);
+    } else {
+      document.getElementById("topPageCount").textContent = "–";
+      document.getElementById("topPageName").textContent = "Most visited page";
+    }
+    var maxPage = pages.length ? pages[0][1] : 0;
+    renderBarRows("pagesBody", pages.map(function (kv) { return [prettyPage(kv[0]), kv[1]]; }), maxPage, "");
+    var srcs = topRows(j.by_source, 8);
+    var maxSrc = srcs.length ? srcs[0][1] : 0;
+    renderBarRows("srcBody", srcs.map(function (kv) { return [prettySource(kv[0]), kv[1]]; }), maxSrc, "sage");
+
+    /* devices */
+    var dev = j.by_device || {};
+    var total = (dev.desktop || 0) + (dev.mobile || 0) + (dev.tablet || 0);
+    var seg = document.getElementById("devSeg");
+    var leg = document.getElementById("devLegend");
+    if (total > 0) {
+      var parts = [
+        ["Mobile", dev.mobile || 0, "#6d7a5f"],
+        ["Computer", dev.desktop || 0, "#d98e1f"],
+        ["Tablet", dev.tablet || 0, "#b2603c"]
+      ].filter(function (p) { return p[1] > 0; });
+      seg.innerHTML = parts.map(function (p) { return "<span style='width:" + (p[1] / total * 100) + "%;background:" + p[2] + ";'></span>"; }).join("");
+      leg.innerHTML = parts.map(function (p) { return "<span><i style='background:" + p[2] + ";'></i>" + p[0] + " · " + p[1] + " (" + Math.round(p[1] / total * 100) + "%)</span>"; }).join("");
+    } else {
+      seg.innerHTML = "<span style='width:100%;background:var(--sage-soft);'></span>";
+      leg.innerHTML = "<span class='muted'>No visits yet.</span>";
+    }
+
+    /* bots */
+    var bots = {};
+    (j.bots || []).forEach(function (e) {
+      var k = (e.vendor || e.bot || "Bot") + (e.bot && e.vendor ? " · " + e.bot : "");
+      bots[k] = (bots[k] || 0) + 1;
+    });
+    var botRows = topRows(bots, 8);
+    var botEl = document.getElementById("botBody");
+    botEl.innerHTML = botRows.length ? botRows.map(function (kv) {
+      return "<tr><td>" + esc(kv[0]) + " <span class='pill'>AI</span></td><td>" + kv[1] + "</td></tr>";
+    }).join("") : "<tr><td colspan='2' class='muted'>No AI visitors in the last 24 hours.</td></tr>";
+
+    /* live list + globe dots */
+    var online = j.online || [];
+    var seenTz = {};
+    var dots = [];
+    online.forEach(function (e, i) {
+      var ll = tzLatLng(e.where || "");
+      if (ll) dots.push({ lat: ll[0], lng: ll[1], phase: (i * 0.37) % 1 });
+      seenTz[e.where || ""] = true;
+    });
+    globe.dots = dots;
+    document.getElementById("globeCount").textContent = online.length + (online.length === 1 ? " live" : " live");
+    var liveList = document.getElementById("liveList");
+    if (online.length) {
+      liveList.innerHTML = online.slice(0, 6).map(function (e) {
+        var pill = e.kind === "bot" ? " <span class='pill'>AI</span>" : "";
+        return "<li><span class='mdot'></span><span class='where'>" + esc(prettyWhere(e.where || "")) + pill + "</span><span class='page'>" + esc(prettyPage(e.page || "/")) + "</span></li>";
+      }).join("");
+    } else {
+      liveList.innerHTML = "<li><span class='empty'>No one on the site at this moment.</span></li>";
+    }
+    var wheres = topRows(j.by_where, 6);
+    var whereList = document.getElementById("whereList");
+    if (wheres.length) {
+      whereList.innerHTML = wheres.map(function (kv) {
+        return "<li><span class='mdot' style='background:var(--honey);box-shadow:0 0 0 4px var(--honey-soft);'></span><span class='where'>" + esc(prettyWhere(kv[0])) + "</span><span class='page'>" + kv[1] + " visit" + (kv[1] === 1 ? "" : "s") + "</span></li>";
+      }).join("");
+    } else {
+      whereList.innerHTML = "<li><span class='empty'>No visits yet today.</span></li>";
+    }
+
+    /* recent */
+    var rec = (j.recent || []).slice(0, 10);
+    document.getElementById("recentList").innerHTML = rec.length ? rec.map(function (e) {
+      var label = (e.kind === "bot" ? (e.vendor || "Bot") + " · AI" : "Visitor");
+      var pill = e.kind === "bot" ? " <span class='pill'>AI</span>" : "";
+      return "<li><span>" + esc(label) + pill + " — " + esc(prettyPage(e.page || "/")) + "</span><span>" + fmtTime(e.ts) + "</span></li>";
     }).join("") : "<li><span class='muted'>No visits yet.</span></li>";
+
+    drawChart(recent);
     document.getElementById("refreshNote").textContent = "Last updated " + new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) + " — updates every 30 seconds.";
   } catch (e) {
+    setConn(false);
     document.getElementById("refreshNote").textContent = "Could not refresh just now — will try again shortly.";
   }
 }
 
-// On load: if this device already has a code, go straight to the dashboard.
+/* On load: if this device already has a code, go straight to the dashboard. */
 if (code) {
   show("lock", false);
   show("dash", true);
   loadLive();
   timer = setInterval(loadLive, 30000);
+  requestAnimationFrame(drawGlobe);
+} else {
+  setConn(false);
 }
 </script>
 </body>
