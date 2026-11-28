@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abundant Corner — Website Traffic</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f6f4ef; color: #2b2b26; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 48px; }
+  h1 { font-size: 26px; margin: 6px 0 4px; color: #33523f; }
+  .sub { color: #6b6b60; margin: 0 0 22px; font-size: 15px; }
+  .card { background: #fff; border: 1px solid #e4e0d6; border-radius: 14px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+  .big { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat { text-align: center; padding: 14px 6px; }
+  .stat .num { font-size: 34px; font-weight: 700; color: #33523f; line-height: 1.1; }
+  .stat .lbl { font-size: 13px; color: #6b6b60; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  td, th { padding: 8px 4px; border-bottom: 1px solid #eee9dd; text-align: left; }
+  td:last-child, th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+  th { color: #6b6b60; font-weight: 600; font-size: 13px; }
+  .muted { color: #6b6b60; font-size: 13px; }
+  input[type="text"], input[type="tel"] { width: 100%; padding: 12px; font-size: 18px; border: 1px solid #cfc9b8; border-radius: 10px; margin: 6px 0 12px; letter-spacing: 2px; }
+  button { background: #33523f; color: #fff; border: 0; border-radius: 10px; padding: 13px 20px; font-size: 16px; cursor: pointer; width: 100%; }
+  button:disabled { opacity: .55; cursor: default; }
+  button.secondary { background: #fff; color: #33523f; border: 1px solid #33523f; }
+  .err { color: #a33; font-size: 14px; margin-top: 8px; min-height: 18px; }
+  .ok { color: #33523f; font-size: 14px; margin-top: 8px; }
+  .hidden { display: none; }
+  ul.clean { list-style: none; margin: 0; padding: 0; font-size: 15px; }
+  ul.clean li { padding: 7px 0; border-bottom: 1px solid #eee9dd; display: flex; justify-content: space-between; gap: 10px; }
+  ul.clean li span:last-child { color: #6b6b60; font-size: 13px; white-space: nowrap; }
+  .refresh { font-size: 13px; color: #6b6b60; text-align: center; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Abundant Corner</h1>
+  <p class="sub">Your website traffic, live.</p>
+
+  <!-- Locked / access screen -->
+  <div id="lock" class="card">
+    <h2 style="margin:0 0 6px;font-size:19px;">Access needed</h2>
+    <p class="muted" style="margin:0 0 14px;">This dashboard is protected. Ask Keita for your access code — he is the only one who can give it to you. Once this device is unlocked, it stays unlocked.</p>
+    <div id="requestBox">
+      <label for="name" class="muted">Your name (so Keita knows who is asking)</label>
+      <input id="name" type="text" value="Yeukai" autocomplete="name">
+      <button id="requestBtn" onclick="requestAccess()">Request access code</button>
+      <div id="requestMsg" class="ok"></div>
+    </div>
+    <div id="codeBox" style="margin-top:16px;">
+      <label for="code" class="muted">Enter the 6-digit code Keita gave you</label>
+      <input id="code" type="tel" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="one-time-code">
+      <button id="verifyBtn" onclick="verifyCode()">Unlock this device</button>
+      <div id="codeErr" class="err"></div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dash" class="hidden">
+    <div class="card big">
+      <div class="stat"><div class="num" id="onlineNow">–</div><div class="lbl">people on your site now</div></div>
+      <div class="stat"><div class="num" id="total24">–</div><div class="lbl">visits in the last 24 hours</div></div>
+      <div class="stat"><div class="num" id="bots24">–</div><div class="lbl">AI / bot visits (24h)</div></div>
+    </div>
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">Most visited pages</h2>
+      <table><thead><tr><th>Page</th><th>Visits</th></tr></thead><tbody id="pagesBody"><tr><td colspan="2" class="muted">Loading…</td></tr></tbody></table>
+    </div>
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">Where visitors come from</h2>
+      <table><thead><tr><th>Source</th><th>Visits</th></tr></thead><tbody id="srcBody"><tr><td colspan="2" class="muted">Loading…</td></tr></tbody></table>
+    </div>
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">Recent visitors</h2>
+      <ul class="clean" id="recentList"><li><span class="muted">Loading…</span></li></ul>
+    </div>
+    <p class="refresh" id="refreshNote">Updates every 30 seconds.</p>
+  </div>
+</div>
+<script>
+var API = "https://abundant-traffic.fly.dev";
+var deviceId = localStorage.getItem("ac_device_id");
+if (!deviceId) {
+  deviceId = (crypto.randomUUID ? crypto.randomUUID() : "dev-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10));
+  localStorage.setItem("ac_device_id", deviceId);
+}
+var code = localStorage.getItem("ac_device_code") || "";
+var timer = null;
+
+function show(el, on) { document.getElementById(el).classList.toggle("hidden", !on); }
+
+async function requestAccess() {
+  var btn = document.getElementById("requestBtn");
+  var msg = document.getElementById("requestMsg");
+  btn.disabled = true;
+  msg.textContent = "Sending your request…";
+  try {
+    var r = await fetch(API + "/request-access", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ device_id: deviceId, name: document.getElementById("name").value || "Yeukai" })
+    });
+    var j = await r.json();
+    if (j.ok && j.status === "approved") {
+      msg.textContent = "This device is already approved. Enter your code below.";
+    } else if (j.ok) {
+      msg.textContent = "Request sent. Keita has been emailed your code — ask him for it, then enter it below.";
+    } else {
+      msg.textContent = "Something went wrong. Please try again.";
+    }
+  } catch (e) {
+    msg.textContent = "Could not reach the server. Check your connection and try again.";
+  }
+  btn.disabled = false;
+}
+
+async function verifyCode() {
+  var c = document.getElementById("code").value.trim();
+  var err = document.getElementById("codeErr");
+  var btn = document.getElementById("verifyBtn");
+  if (!/^\d{6}$/.test(c)) { err.textContent = "Please enter the 6-digit code."; return; }
+  btn.disabled = true;
+  err.textContent = "";
+  try {
+    var r = await fetch(API + "/verify-code", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ device_id: deviceId, code: c })
+    });
+    var j = await r.json();
+    if (j.ok) {
+      code = c;
+      localStorage.setItem("ac_device_code", c);
+      show("lock", false);
+      show("dash", true);
+      loadLive();
+      timer = setInterval(loadLive, 30000);
+    } else if (j.error === "locked") {
+      err.textContent = "Too many wrong tries. Wait " + Math.ceil((j.retry_after || 900) / 60) + " minutes, then try again — or ask Keita for a new code.";
+    } else if (typeof j.attempts_left === "number") {
+      err.textContent = "That code is not right. " + j.attempts_left + " attempt(s) left before this device is locked for 15 minutes.";
+    } else {
+      err.textContent = "That code is not right. Please check it and try again.";
+    }
+  } catch (e) {
+    err.textContent = "Could not reach the server. Check your connection and try again.";
+  }
+  btn.disabled = false;
+}
+
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (m) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]; }); }
+function fmtTime(ts) {
+  var d = new Date(ts * 1000);
+  return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+}
+function topRows(obj, n) {
+  return Object.entries(obj || {}).sort(function (a, b) { return b[1] - a[1]; }).slice(0, n);
+}
+
+async function loadLive() {
+  try {
+    var r = await fetch(API + "/live?device_id=" + encodeURIComponent(deviceId) + "&code=" + encodeURIComponent(code));
+    var j = await r.json();
+    if (!j.ok) {
+      localStorage.removeItem("ac_device_code");
+      code = "";
+      if (timer) clearInterval(timer);
+      show("dash", false);
+      show("lock", true);
+      document.getElementById("codeErr").textContent = "Your access needs to be confirmed again. Please enter your code.";
+      return;
+    }
+    document.getElementById("onlineNow").textContent = j.online_now;
+    document.getElementById("total24").textContent = j.total_24h;
+    document.getElementById("bots24").textContent = j.bots_24h;
+    document.getElementById("pagesBody").innerHTML = topRows(j.by_page, 8).map(function (kv) {
+      return "<tr><td>" + esc(kv[0]) + "</td><td>" + kv[1] + "</td></tr>";
+    }).join("") || "<tr><td colspan='2' class='muted'>No visits yet.</td></tr>";
+    document.getElementById("srcBody").innerHTML = topRows(j.by_source, 8).map(function (kv) {
+      return "<tr><td>" + esc(kv[0]) + "</td><td>" + kv[1] + "</td></tr>";
+    }).join("") || "<tr><td colspan='2' class='muted'>No visits yet.</td></tr>";
+    var recent = (j.recent || []).slice(0, 10);
+    document.getElementById("recentList").innerHTML = recent.length ? recent.map(function (e) {
+      var label = (e.kind === "bot" ? (e.vendor || "Bot") + " (AI)" : "Visitor");
+      return "<li><span>" + esc(label) + " — " + esc(e.page || "/") + "</span><span>" + fmtTime(e.ts) + "</span></li>";
+    }).join("") : "<li><span class='muted'>No visits yet.</span></li>";
+    document.getElementById("refreshNote").textContent = "Last updated " + new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) + " — updates every 30 seconds.";
+  } catch (e) {
+    document.getElementById("refreshNote").textContent = "Could not refresh just now — will try again shortly.";
+  }
+}
+
+// On load: if this device already has a code, go straight to the dashboard.
+if (code) {
+  show("lock", false);
+  show("dash", true);
+  loadLive();
+  timer = setInterval(loadLive, 30000);
+}
+</script>
+</body>
+</html>
